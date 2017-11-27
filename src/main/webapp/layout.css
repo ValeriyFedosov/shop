@@ -1,0 +1,45 @@
+/* Elements disposition and block size */
+.center {
+    margin: auto;
+    width: 600px;
+}
+
+.search-box {
+	margin: auto;
+	padding: 10px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.search-box input[type="text"] {
+	float: left;
+	width: 85%;
+	margin: 5px 0;
+}
+
+.search-box input[type="submit"] {
+	float: right;
+}
+
+.prod-list {
+	padding: 0 10px 10px 10px;
+	margin: 0;
+	overflow: hidden;
+}
+
+.prod-item {
+	list-style: none;
+	float: left;
+	width: 288px;
+	padding: 5px;
+}
+
+.action-box {
+	overflow: hidden;
+	padding: 0 10px 10px 10px;
+}
+
+.action-box a {
+	float: right;
+	margin-left: 10px;
+}
