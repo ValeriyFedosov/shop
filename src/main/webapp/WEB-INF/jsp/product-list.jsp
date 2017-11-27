@@ -34,6 +34,7 @@
         </li>
     </c:forEach>
     </ul>
+    <table></table>
 
     <div class="action-box">
         <a href="/product" class="btn btn-warning" role="button">New product</a>
