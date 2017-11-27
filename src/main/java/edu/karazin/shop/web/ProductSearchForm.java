@@ -1,13 +1,13 @@
 package edu.karazin.shop.web;
 
-public class ProductSerachForm {
+public class ProductSearchForm {
 
 	private String searchText;
 
-	public ProductSerachForm() {
+	public ProductSearchForm() {
 	}
 
-	public ProductSerachForm(String searchText) {
+	public ProductSearchForm(String searchText) {
 		this.searchText = searchText;
 	}
 

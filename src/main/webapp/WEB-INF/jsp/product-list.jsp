@@ -28,13 +28,13 @@
             <p>${prod.description}</p>
             <div class="action-box">
                 <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
-                <a href="/order?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
+                <a href="/product-view?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
                 <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
             </div>
         </li>
     </c:forEach>
     </ul>
-    <table></table>
+
 
     <div class="action-box">
         <a href="/product" class="btn btn-warning" role="button">New product</a>
