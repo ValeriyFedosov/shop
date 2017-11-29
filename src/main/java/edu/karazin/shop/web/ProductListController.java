@@ -25,7 +25,6 @@ public class ProductListController {
 	@GetMapping
 	public String listProducts(Model model,
 			@RequestParam(name = "searchText", required = false) String searchText) {
-		log.info("Read full product list");
 		model.addAttribute("products", productService.searchProducts(null));
 		model.addAttribute("searchForm", new ProductSearchForm(searchText));
 		return "product-list";

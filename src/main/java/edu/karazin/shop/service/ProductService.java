@@ -2,6 +2,7 @@ package edu.karazin.shop.service;
 
 import java.util.List;
 
+import edu.karazin.shop.dto.ProductDto;
 import edu.karazin.shop.model.Product;
 
 public interface ProductService {
@@ -15,4 +16,6 @@ public interface ProductService {
 	void updateProduct(Product prod);
 
 	void removeProduct(Long id);
+
+	ProductDto getProductDto(Long id);
 }

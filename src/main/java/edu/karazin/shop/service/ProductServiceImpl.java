@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import edu.karazin.shop.dto.ProductDto;
+import edu.karazin.shop.utils.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,13 @@ import edu.karazin.shop.model.Product;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	private final ProductDao dao;
+	@Autowired
+	private ProductDao dao;
 
-	public ProductServiceImpl(@Autowired ProductDao dao) {
-		this.dao = dao;
-	}
+	@Autowired
+	private ProductUtil productUtil;
+
+	public ProductDto getProductDto(Long id) { return productUtil.convertEntityToDto(dao.findById(id)); }
 
 	@Override
 	public Product getProduct(Long id) {

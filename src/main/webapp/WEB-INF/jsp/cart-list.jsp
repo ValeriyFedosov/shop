@@ -16,15 +16,20 @@
 <body>
 <div class="center">
 
+
     <ul class="cart-list">
     <c:forEach items="${products}" var="prod">
         <li class="cart-item">
             <h3>${prod.title}</h3>
-            <a href="/cart?delete&prodId=${prod.id}" class="btn btn-danger" role="button">Remove</a>
+            <h3>${prod.description}</h3>
+            <h3>${prod.countOfCost}</h3>
+            <h3>${prod.countOfProducts}</h3>
+            <a href="/cart?delete&prodId=${prod.id}" class="btn btn-danger" role="button">Delete</a>
         </li>
     </c:forEach>
     </ul>
 
+    <a href="/cart?deleteAll" class="btn btn-danger" role="button">RemoveAll</a>
     <div class="action-box">
         <a href="/products" class="btn btn-info" role="button">Back to products</a>
     </div>

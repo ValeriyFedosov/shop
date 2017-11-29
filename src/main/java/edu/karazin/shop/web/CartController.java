@@ -3,9 +3,7 @@ package edu.karazin.shop.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
@@ -22,21 +20,31 @@ public class CartController {
 		this.cartStore = cartStore;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String list(Model model) {
-		model.addAttribute("products", cartStore.getProducts());
+	@GetMapping
+    public String getCart(Model model) {
+	    model.addAttribute("products", cartStore.getProducts());
+	    return "cart-list";
+    }
+
+
+	@GetMapping(params = "add")
+	public String addProduct(@RequestParam("prodId") Long prodId, Model model) {
+		cartStore.addProduct(productService.getProductDto(prodId));
+        System.out.println(cartStore.getProducts());
+        model.addAttribute("products", cartStore.getProducts());
+        return "cart-list";
+	}
+
+	@GetMapping(params = "delete")
+	public String removeProduct(@RequestParam("prodId") Long prodId, Model model) {
+		//cartStore.removeProduct(productService.getProduct(prodId));
+        model.addAttribute("products", cartStore.getProducts());
 		return "cart-list";
 	}
 
-	//@RequestMapping(method = RequestMethod.GET, params = "add")
-	public String addProduct(@RequestParam("prodId") Long prodId, Model model) {
-		cartStore.addProduct(productService.getProduct(prodId));
-		return list(model);
-	}
-
-	@RequestMapping(method = RequestMethod.GET, params = "delete")
-	public String removeProduct(@RequestParam("prodId") Long prodId, Model model) {
-		cartStore.removeProduct(productService.getProduct(prodId));
-		return list(model);
-	}
+    @GetMapping(params = "deleteAll")
+    public String removeAllProducts() {
+        cartStore.removeAll();
+        return "cart-list";
+    }
 }
