@@ -39,7 +39,6 @@ public class ProductListController {
 	@PostMapping
 	public String searchProducts(Model model,
 			@ModelAttribute("searchForm") ProductSearchForm form) {
-		log.info("Search product list with {}", form.getSearchText());
 		model.addAttribute("products", productService.searchProducts(form.getSearchText()));
         model.addAttribute("cart", cartStore.getTotalAmount());
 		return "product-list";

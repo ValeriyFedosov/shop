@@ -15,6 +15,22 @@
     <script type="text/javascript" src="${resourceContext}/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="float-md-none" style="width: 200px; height: 20px; color: #fff;">
+                <div class="alert alert-secondary" role="alert">
+                    <span>Cart</span>
+                    <span class="float-right"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
 <div class="center">
 
 

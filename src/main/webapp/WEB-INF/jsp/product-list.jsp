@@ -20,13 +20,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="float-md-none" style="width: 200px; height: 20px; color: #fff;">asdasda</div>
+            <div class="float-md-none" style="width: 200px; height: 20px; color: #fff;"></div>
             <div class="alert alert-secondary" role="alert">
-                <span>asdasd</span>
+                <span>Products</span>
                 <span class="badge badge-pill badge-warning float-right">${cart}</span>
             </div>
         </div>
-</div>
+    </div>
 </div>
 
 
@@ -58,7 +58,8 @@
                                 <a href="/product-view?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
+                                <a href="/product?${prod.id}" class="btn btn-warning" role="button">Edit</a>
+                                <a href="/product?delete&prodId=${prod.id}" class="btn btn-warning" role="button">Delete</a>
                             </sec:authorize>
                         </div>
                     </div>

@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.service.ProductService;
@@ -26,36 +24,35 @@ public class ProductEditController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String newProduct(Model model) {
-		log.info("Render form for new product");
-
 		model.addAttribute("product", new Product(null, "", ""));
 		return "product-edit";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "{id}")
 	public String editProduct(Model model, @PathVariable("id") Long productId) {
-		log.info("Edit product");
-
-		Product p = productService.getProduct(productId);
+			Product p = productService.getProduct(productId);
 		if (p == null) {
 			throw new NotFoundException();
 		}
-
 		model.addAttribute("product", p);
 		return "product-edit";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public String addProduct(Model model, Product product) {
-		log.info("Add product");
 		productService.addProduct(product);
 		return "redirect:/products";
 	}
 
-	@RequestMapping(method = RequestMethod.POST, path = "{id}")
-	public String updateProduct(Model model, Product product) {
-		log.info("Update product");
-		productService.updateProduct(product);
+	@PostMapping(params = "update", path = "{id}")
+	public String updateProduct(Model model, @PathVariable Long id) {
+		productService.updateProduct(productService.getProduct(id));
 		return "redirect:/products";
+	}
+
+	@GetMapping(params = "delete")
+	public String deleteProduct(@RequestParam("prodId") Long prodId, Model model) {
+		productService.removeProduct(prodId);
+		return "products";
 	}
 }

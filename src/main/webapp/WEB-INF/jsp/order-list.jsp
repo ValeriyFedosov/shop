@@ -15,7 +15,7 @@
     <ul>
         <c:forEach items="${products}" var="prod">
            <li>
-               ${prod.title}
+               ${prod.product.title}
                <br>
                ${prod.countOfCost}
                    <br>
@@ -24,9 +24,12 @@
         </c:forEach>
     </ul>
 
+    <h3>${product.title}</h3>
+    <h3>${product.cost}</h3>
+
+
     <a href="/products" class="btn btn-info" role="button">Back to products</a>
+    <a href="/cart" class="btn btn-info" role="button">Back to Cart</a>
 
-
-    <h3>${product}</h3>
 </body>
 </html>    

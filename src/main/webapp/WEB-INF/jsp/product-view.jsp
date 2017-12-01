@@ -12,13 +12,30 @@
     <script type="text/javascript" src="${resourceContext}/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="float-md-none" style="width: 200px; height: 20px; color: #fff;"></div>
+            <div class="alert alert-secondary" role="alert">
+                <span>View</span>
+                <span class="badge badge-pill badge-warning float-right">${cart}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <br/>
+        <br/>
+
+
     ${product.title}
     <br/>
     ${product.description}
     <br/>
-    ${product.balance}
+    Balance${product.balance}
     <br/>
-    ${product.cost}
+    Cost:${product.cost}
     <br/>
     ${product.imageMimeType}
     <br/>
@@ -26,17 +43,13 @@
 
 
     <div class="action-box">
-        <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
-        <a href="/order?single&prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
+        <a href="/cart?add&prodId=${product.id}" class="btn btn-info" role="button">Add to Cart</a>
+        <a href="/order?single&prodId=${product.id}" class="btn btn-info" role="button">Buy</a>
     </div>
 
     <div class="action-box">
         <a href="/products" class="btn btn-info" role="button">Back to products</a>
     </div>
-
-
-
-    
 
 
 </body>

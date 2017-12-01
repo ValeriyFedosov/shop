@@ -26,7 +26,7 @@ public class CartController {
     public String getCart(Model model) {
 	    model.addAttribute("products", cartStore.getProducts());
 		model.addAttribute("total", cartStore.getTotalCost());
-	    return "cart";
+	    return "cart-list";
     }
 
 
@@ -35,7 +35,7 @@ public class CartController {
 		cartStore.addProduct(productService.getBasketItems(prodId));
         model.addAttribute("products", cartStore.getProducts());
 		model.addAttribute("total", cartStore.getTotalCost());
-        return "cart";
+        return "cart-list";
 	}
 
 	@GetMapping(params = "delete")
@@ -43,12 +43,12 @@ public class CartController {
 		cartStore.removeProduct(productService.getBasketItems(prodId));
         model.addAttribute("products", cartStore.getProducts());
 		model.addAttribute("total", cartStore.getTotalCost());
-		return "cart";
+		return "cart-list";
 	}
 
     @GetMapping(params = "deleteAll")
     public String removeAllProducts() {
         cartStore.removeAll();
-        return "cart";
+        return "cart-list";
     }
 }
