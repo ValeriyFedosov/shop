@@ -1,9 +1,9 @@
 package edu.karazin.shop.service;
 
-import java.util.List;
-
-import edu.karazin.shop.dto.ProductDto;
+import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
+
+import java.util.List;
 
 public interface ProductService {
 
@@ -17,5 +17,5 @@ public interface ProductService {
 
 	void removeProduct(Long id);
 
-	ProductDto getProductDto(Long id);
+	BasketItem getBasketItems(Long id);
 }

@@ -92,35 +92,22 @@ public class Product {
 	}
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-        Product product = (Product) o;
+		Product product = (Product) o;
 
-        if (cost != product.cost) return false;
-        if (balance != product.balance) return false;
-        if (!id.equals(product.id)) return false;
-        if (!title.equals(product.title)) return false;
-        if (description != null ? !description.equals(product.description) : product.description != null) return false;
-        if (!Arrays.equals(image, product.image)) return false;
-        return imageMimeType != null ? imageMimeType.equals(product.imageMimeType) : product.imageMimeType == null;
-    }
+		return id != null ? id.equals(product.id) : product.id == null;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(image);
-        result = 31 * result + (imageMimeType != null ? imageMimeType.hashCode() : 0);
-        result = 31 * result + (int) (cost ^ (cost >>> 32));
-        result = 31 * result + balance;
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
 
-    @Override
+	@Override
     public String toString() {
         return "Product{" +
                 "id=" + id +

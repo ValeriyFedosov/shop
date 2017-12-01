@@ -1,17 +1,20 @@
 package edu.karazin.shop.service;
 
-import edu.karazin.shop.dto.ProductDto;
-import edu.karazin.shop.model.Product;
+import edu.karazin.shop.model.BasketItem;
 
 import java.util.List;
 
 public interface CartStore {
 
-	List<ProductDto> getProducts();
+	List<BasketItem> getProducts();
 
-	void addProduct(ProductDto prod);
+	void addProduct(BasketItem prod);
 
-	void removeProduct(ProductDto prod);
+	void removeProduct(BasketItem prod);
 
 	void removeAll();
+
+	Long getTotalCost();
+
+	Long getTotalAmount();
 }

@@ -1,5 +1,6 @@
 package edu.karazin.shop.web;
 
+import edu.karazin.shop.service.CartStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,20 @@ public class ProductListController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private CartStore cartStore;
+
 //	public ProductListController(@Autowired ProductService productService) {
 //		this.productService = productService;
 //	}
+
 
 	@GetMapping
 	public String listProducts(Model model,
 			@RequestParam(name = "searchText", required = false) String searchText) {
 		model.addAttribute("products", productService.searchProducts(null));
 		model.addAttribute("searchForm", new ProductSearchForm(searchText));
+        model.addAttribute("cart", cartStore.getTotalAmount());
 		return "product-list";
 	}
 
@@ -35,6 +41,7 @@ public class ProductListController {
 			@ModelAttribute("searchForm") ProductSearchForm form) {
 		log.info("Search product list with {}", form.getSearchText());
 		model.addAttribute("products", productService.searchProducts(form.getSearchText()));
+        model.addAttribute("cart", cartStore.getTotalAmount());
 		return "product-list";
 	}
 }

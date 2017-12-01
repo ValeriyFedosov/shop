@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <c:set var="resourceContext" value="${pageContext.request.contextPath}" />
 
@@ -21,11 +23,21 @@
             <div class="float-md-none" style="width: 200px; height: 20px; color: #fff;">asdasda</div>
             <div class="alert alert-secondary" role="alert">
                 <span>asdasd</span>
-                <span class="badge badge-pill badge-warning float-right">151</span>
+                <span class="badge badge-pill badge-warning float-right">${cart}</span>
             </div>
         </div>
-    </div>
 </div>
+</div>
+
+
+    <div class="action-box">
+        <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
+            <a href="/login" class="btn btn-warning" role="button">Login</a>
+        </sec:authorize>
+        <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
+            <a href="/logout" class="btn btn-warning" role="button">Logout</a>
+        </sec:authorize>
+    </div>
 <div class="center">
 
     <form:form modelAttribute="searchForm" cssClass="search-box">
@@ -41,10 +53,13 @@
                         <div class="card-header badge-primary">${prod.title} ( ${prod.balance} )</div>
                         <div class="card-body text-primary">
                             <h4 class="card-title">${prod.description}</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
-                            <a href="/product-view?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
-                            <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
+                            <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+                                <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
+                                <a href="/product-view?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
+                            </sec:authorize>
                         </div>
                     </div>
                 </div>
@@ -52,8 +67,11 @@
         </div>
     </div>
 
+
     <div class="action-box float-right">
-        <a href="/product" class="btn btn-warning" role="button">New product</a>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="/product" class="btn btn-warning" role="button">New product</a>
+        </sec:authorize>
     </div>
 
 </div>

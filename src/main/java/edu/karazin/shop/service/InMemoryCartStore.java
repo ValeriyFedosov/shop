@@ -1,50 +1,76 @@
 
 package edu.karazin.shop.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.karazin.shop.dto.ProductDto;
-import edu.karazin.shop.utils.ProductUtil;
+import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.converter.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.INTERFACES)
 public class InMemoryCartStore implements CartStore {
 
-	private final List<ProductDto> products = new ArrayList<>();
+	private final List<BasketItem> products = new ArrayList<>();
+	private long totalCost;
+	private long totalAmount;
 
 	@Autowired
 	private ProductUtil productUtil;
 
 	@Override
-	public List<ProductDto> getProducts() {
+	public List<BasketItem> getProducts() {
 		return products;
 	}
 
-	@Override
-	public void addProduct(ProductDto prod) {
-		if (products.contains(prod)) {
-			System.out.println(products.get((int) prod.getId()-1));
-			productUtil.count(products.get((int) prod.getId()-1));
-            System.out.println(products.get((int) prod.getId()-1));
-        } else {
-            products.add(prod);
-        }
-	}
 
 	@Override
-	public void removeProduct(ProductDto prod) {
-		products.remove(prod);
+	public void addProduct(BasketItem prod) {
+		if (products.contains(prod)) {
+			productUtil.increaseProduct(prod, products);
+        } else {
+			prod.setCountOfCost(prod.getProduct().getCost());
+			prod.setCountOfProducts(prod.getCountOfProducts() + 1);
+            products.add(prod);
+        }
+        ++totalAmount;
+        totalCost+=prod.getProduct().getCost();
+        System.out.println(totalCost);
+    }
+
+	@Override
+	public void removeProduct(BasketItem prod) {
+        for (BasketItem basketItem : products) {
+            if(basketItem.equals(prod)){
+                totalAmount-=basketItem.getCountOfProducts();
+            }
+        }
+	    products.remove(prod);
+	    totalCost -= prod.getProduct().getCost() * prod.getCountOfProducts();
 	}
 
     @Override
     public void removeAll() {
-        products.clear();
+        totalAmount = 0;
+        totalCost = 0;
+	    products.clear();
     }
+
+
+    @Override
+    public Long getTotalCost() {
+        return totalCost;
+    }
+
+
+	@Override
+	public Long getTotalAmount() {
+		return totalAmount;
+	}
 
 }

@@ -1,16 +1,14 @@
 package edu.karazin.shop.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import edu.karazin.shop.dto.ProductDto;
-import edu.karazin.shop.utils.ProductUtil;
+import edu.karazin.shop.dao.ProductDao;
+import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.Product;
+import edu.karazin.shop.converter.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.karazin.shop.dao.ProductDao;
-import edu.karazin.shop.model.Product;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -21,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductUtil productUtil;
 
-	public ProductDto getProductDto(Long id) { return productUtil.convertEntityToDto(dao.findById(id)); }
+	public BasketItem getBasketItems(Long id) { return productUtil.convertEntityToBasketItem(dao.findById(id)); }
 
 	@Override
 	public Product getProduct(Long id) {
