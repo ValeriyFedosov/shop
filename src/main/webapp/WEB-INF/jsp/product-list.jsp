@@ -16,14 +16,16 @@
     <script type="text/javascript" src="${resourceContext}/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<a href="/cart" class="btn btn-danger" role="button">Cart</a>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="float-md-none" style="width: 200px; height: 20px; color: #fff;"></div>
             <div class="alert alert-secondary" role="alert">
                 <span>Products</span>
-                <span class="badge badge-pill badge-warning float-right">${cart}</span>
+                <span style="margin-left: 40%;">
+                    <a href="/cart">Cart: </a>
+                    <span class="badge badge-pill badge-warning">${cart}</span>
+                </span>
             </div>
         </div>
     </div>
