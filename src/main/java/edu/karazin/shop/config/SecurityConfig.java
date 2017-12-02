@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import static edu.karazin.shop.model.Role.ROLE_ADMIN;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -30,9 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().
                 authorizeRequests()
                 .antMatchers("/product/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/cart/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                .antMatchers("/order/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-                //.antMatchers("/user/**").permitAll()
+                .antMatchers("/cart/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN') or hasRole('ROLE_ANONYMOUS')")
+                .antMatchers("/order/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER') or hasRole('ROLE_ANONYMOUS')")
+                .antMatchers("/user/**").access("hasRole('ROLE_ADMIN')")
                 .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/products")

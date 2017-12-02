@@ -50,9 +50,10 @@
             <c:forEach items="${products}" var="prod">
                 <div class="col-6" style="margin-bottom: 20px">
                     <div class="card border-primary" style="max-width: 650px;">
-                        <div class="card-header badge-primary">${prod.title} ( ${prod.balance} )</div>
+                        <div class="card-header badge-primary">${prod.title}</div>
                         <div class="card-body text-primary">
-                            <h4 class="card-title">${prod.description}</h4>
+                            <h6 class="card-title">${prod.description}</h6>
+                            <h4 class="card-title">Balance: ${prod.balance}</h4>
                             <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_ANONYMOUS')">
                                 <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
                                 <a href="/product-view?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
