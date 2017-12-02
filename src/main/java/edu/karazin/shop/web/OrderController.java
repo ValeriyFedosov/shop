@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("order")
 public class OrderController {
@@ -27,16 +29,8 @@ public class OrderController {
 
     @GetMapping(params = "cart")
     public String orderFromCart(Model model) {
-        for (BasketItem basketItem : cartStore.getProducts()) {
-            for (Product product : productService.getList(cartStore.getProducts())) {
-                if (basketItem.getCountOfProducts() <= basketItem.getProduct().getBalance()) {
-                }
-                else {
-                    return "run-out-of-products";
-                }
-            }
-        }
-
+        if(!(productUtil.checkForExistanceForCart(cartStore.getProducts(), cartStore)))
+            return "run-out-of-products";
         model.addAttribute("products", cartStore.getProducts());
         return "order-list";
     }

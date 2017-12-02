@@ -2,6 +2,7 @@ package edu.karazin.shop.converter;
 
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
+import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,4 +38,15 @@ public class ProductUtil {
         return false;
     }
 
+    public boolean checkForExistanceForCart(List<BasketItem> products, CartStore cartStore) {
+        for (BasketItem basketItem : cartStore.getProducts()) {
+                if (!(basketItem.getCountOfProducts() <= basketItem.getProduct().getBalance()))
+                    return false;
+        }
+        for (BasketItem basketItem : products) {
+            basketItem.getProduct().setBalance(basketItem.getProduct().getBalance() - basketItem.getCountOfProducts());
+            productService.updateProduct(basketItem.getProduct());
+        }
+        return true;
+    }
 }

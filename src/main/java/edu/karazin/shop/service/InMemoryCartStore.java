@@ -40,7 +40,6 @@ public class InMemoryCartStore implements CartStore {
         }
         ++totalAmount;
         totalCost+=prod.getProduct().getCost();
-        System.out.println(totalCost);
     }
 
 	@Override
