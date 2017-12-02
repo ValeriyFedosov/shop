@@ -53,12 +53,12 @@
                         <div class="card-header badge-primary">${prod.title} ( ${prod.balance} )</div>
                         <div class="card-body text-primary">
                             <h4 class="card-title">${prod.description}</h4>
-                            <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+                            <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_ANONYMOUS')">
                                 <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
                                 <a href="/product-view?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <a href="/product?${prod.id}" class="btn btn-warning" role="button">Edit</a>
+                                <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
                                 <a href="/product?delete&prodId=${prod.id}" class="btn btn-warning" role="button">Delete</a>
                             </sec:authorize>
                         </div>

@@ -22,29 +22,25 @@ public class ProductEditController {
 		this.productService = productService;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public String newProduct(Model model) {
 		model.addAttribute("product", new Product(null, "", ""));
 		return "product-edit";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "{id}")
+	@GetMapping(path = "{id}")
 	public String editProduct(Model model, @PathVariable("id") Long productId) {
-			Product p = productService.getProduct(productId);
-		if (p == null) {
-			throw new NotFoundException();
-		}
-		model.addAttribute("product", p);
+		model.addAttribute("product", productService.getProduct(productId));
 		return "product-edit";
 	}
 
 	@PostMapping
-	public String addProduct(Model model, Product product) {
+	public String saveProduct(Model model, Product product) {
 		productService.addProduct(product);
 		return "redirect:/products";
 	}
 
-	@PostMapping(params = "update", path = "{id}")
+	@PostMapping(path = "{id}")
 	public String updateProduct(Model model, @PathVariable Long id) {
 		productService.updateProduct(productService.getProduct(id));
 		return "redirect:/products";
@@ -53,6 +49,6 @@ public class ProductEditController {
 	@GetMapping(params = "delete")
 	public String deleteProduct(@RequestParam("prodId") Long prodId, Model model) {
 		productService.removeProduct(prodId);
-		return "products";
+		return "redirect:/products";
 	}
 }
