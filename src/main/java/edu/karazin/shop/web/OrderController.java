@@ -1,5 +1,8 @@
 package edu.karazin.shop.web;
 
+import edu.karazin.shop.converter.ProductUtil;
+import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.Product;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +22,33 @@ public class OrderController {
     @Autowired
     private CartStore cartStore;
 
+    @Autowired
+    private ProductUtil productUtil;
+
     @GetMapping(params = "cart")
     public String orderFromCart(Model model) {
+        for (BasketItem basketItem : cartStore.getProducts()) {
+            for (Product product : productService.getList(cartStore.getProducts())) {
+                if (basketItem.getCountOfProducts() <= basketItem.getProduct().getBalance()) {
+                }
+                else {
+                    return "run-out-of-products";
+                }
+            }
+        }
+
         model.addAttribute("products", cartStore.getProducts());
         return "order-list";
     }
 
     @GetMapping(params = "single")
     public String orderOne(@RequestParam("prodId") Long prodId, Model model) {
-        model.addAttribute("product", productService.getProduct(prodId));
-        return "order-list";
+        if (productUtil.checkForExistance(prodId)) {
+            model.addAttribute("product", productService.getProduct(prodId));
+            return "order-list";
+        } else {
+            return "run-out-of-products";
+        }
     }
+
 }

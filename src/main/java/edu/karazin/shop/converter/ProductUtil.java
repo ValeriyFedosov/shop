@@ -32,4 +32,9 @@ public class ProductUtil {
         }
     }
 
+    public boolean checkForExistance(Long prodId) {
+        if (productService.getProduct(prodId).getBalance() != 0) return true;
+        return false;
+    }
+
 }

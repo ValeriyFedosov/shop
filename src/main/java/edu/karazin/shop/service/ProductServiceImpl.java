@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +25,20 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product getProduct(Long id) {
 		return dao.findById(id);
+	}
+
+	@Override
+	public List<Product> getAll() {
+		return dao.findAll();
+	}
+
+	@Override
+	public List<Product> getList(List<BasketItem> basketItems) {
+		List<Product> list = new ArrayList<>();
+		for (BasketItem basketItem : basketItems) {
+			list.add(dao.findById(basketItem.getProduct().getId()));
+		}
+		return list;
 	}
 
 	@Override

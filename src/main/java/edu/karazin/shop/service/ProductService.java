@@ -9,6 +9,10 @@ public interface ProductService {
 
 	Product getProduct(Long id);
 
+	List<Product> getAll();
+
+	List<Product> getList(List<BasketItem> basketItems);
+
 	List<Product> searchProducts(String searchText);
 
 	Long addProduct(Product prod);
