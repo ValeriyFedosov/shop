@@ -1,4 +1,4 @@
-package edu.karazin.shop.web;
+package edu.karazin.shop.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

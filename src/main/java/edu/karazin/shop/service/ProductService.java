@@ -11,7 +11,7 @@ public interface ProductService {
 
 	List<Product> getAll();
 
-	List<Product> getList(List<BasketItem> basketItems);
+	List<Product> getBasketItems(List<BasketItem> basketItems);
 
 	List<Product> searchProducts(String searchText);
 

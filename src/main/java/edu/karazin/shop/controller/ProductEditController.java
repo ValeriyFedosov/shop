@@ -1,4 +1,4 @@
-package edu.karazin.shop.web;
+package edu.karazin.shop.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.service.ProductService;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Controller
 @RequestMapping("product")

@@ -1,9 +1,9 @@
 package edu.karazin.shop.service;
 
-import edu.karazin.shop.dao.ProductDao;
+import edu.karazin.shop.converter.ProductUtil;
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
-import edu.karazin.shop.converter.ProductUtil;
+import edu.karazin.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,32 +14,36 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	private final ProductDao dao;
-	private final ProductUtil productUtil;
+	private final ProductRepository productRepository;
+	private ProductUtil productUtil;
 
-	public ProductServiceImpl(@Autowired ProductDao dao,@Autowired ProductUtil productUtil) {
-		this.dao = dao;
-		this.productUtil = productUtil;
+	public ProductServiceImpl(@Autowired ProductRepository productRepository) {
+		this.productRepository = productRepository;
 	}
 
-	public BasketItem getBasketItems(Long id) { return productUtil.convertEntityToBasketItem(dao.findById(id)); }
+    @Autowired
+	public void setProductUtil(ProductUtil productUtil) {
+	    this.productUtil = productUtil;
+    }
+
+	public BasketItem getBasketItems(Long id) { return productUtil.convertEntityToBasketItem(productRepository.getProductById(id)); }
 
 
     @Override
 	public Product getProduct(Long id) {
-		return dao.findById(id);
+		return productRepository.getProductById(id);
 	}
 
 	@Override
 	public List<Product> getAll() {
-		return dao.findAll();
+		return productRepository.findAll();
 	}
 
 	@Override
-	public List<Product> getList(List<BasketItem> basketItems) {
+	public List<Product> getBasketItems(List<BasketItem> basketItems) {
 		List<Product> list = new ArrayList<>();
 		for (BasketItem basketItem : basketItems) {
-			list.add(dao.findById(basketItem.getProduct().getId()));
+			list.add(productRepository.getProductById(basketItem.getProduct().getId()));
 		}
 		return list;
 	}
@@ -47,32 +51,32 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> searchProducts(String searchText) {
 		if (searchText == null || searchText.trim().isEmpty()) {
-			return dao.findAll();
+			return productRepository.findAll();
 		}
-		return dao.findByText(searchText);
+		return productRepository.findByText(searchText);
 	}
 
 	@Override
 	@Transactional
 	public Long addProduct(Product prod) {
-        try {
-            return dao.save(prod).getId();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+			for (Product product : getAll()) {
+				if (prod.equals(product)) {
+					return null;
+				}
+            }
+            return productRepository.save(prod).getId();
     }
 
 	@Override
 	@Transactional
 	public void updateProduct(Product prod) {
-		dao.save(prod);
+		productRepository.save(prod);
 	}
 
 	@Override
 	@Transactional
 	public void removeProduct(Long id) {
-		dao.delete(id);
+		productRepository.delete(id);
 	}
 
     @Override

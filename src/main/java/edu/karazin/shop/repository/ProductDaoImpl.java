@@ -1,4 +1,4 @@
-package edu.karazin.shop.dao;
+package edu.karazin.shop.repository;
 
 import java.util.List;
 

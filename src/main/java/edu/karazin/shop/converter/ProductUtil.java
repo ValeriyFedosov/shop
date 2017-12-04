@@ -12,12 +12,13 @@ import java.util.List;
 @Component
 public class ProductUtil {
 
-    private ProductService productService;
+    private  ProductService productService;
 
     @Autowired
     public void setProductService(ProductService productService) {
         this.productService = productService;
     }
+
 
     public ProductService getProductService() {
         return productService;

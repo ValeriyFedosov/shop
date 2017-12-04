@@ -1,4 +1,4 @@
-package edu.karazin.shop.web;
+package edu.karazin.shop.controller;
 
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;

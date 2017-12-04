@@ -1,6 +1,6 @@
 package edu.karazin.shop.service;
 
-import edu.karazin.shop.dao.UserRepository;
+import edu.karazin.shop.repository.UserRepository;
 import edu.karazin.shop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
