@@ -12,10 +12,15 @@ import java.util.List;
 @Component
 public class ProductUtil {
 
-    @Autowired
     private ProductService productService;
 
-    public ProductUtil() {
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    public ProductService getProductService() {
+        return productService;
     }
 
     public BasketItem convertEntityToBasketItem(Product product) {
@@ -26,7 +31,7 @@ public class ProductUtil {
 
     public void increaseProduct(BasketItem prod, List<BasketItem> basketItems) {
         for (BasketItem basketItem : basketItems) {
-            if(basketItem.equals(prod)){
+            if (basketItem.equals(prod)) {
                 basketItem.setCountOfCost(basketItem.getCountOfCost() + basketItem.getProduct().getCost());
                 basketItem.setCountOfProducts(basketItem.getCountOfProducts() + 1);
             }
@@ -45,8 +50,8 @@ public class ProductUtil {
 
     public boolean checkForExistanceForCart(List<BasketItem> products, CartStore cartStore) {
         for (BasketItem basketItem : cartStore.getProducts()) {
-                if (!(basketItem.getCountOfProducts() <= basketItem.getProduct().getBalance()))
-                    return false;
+            if (!(basketItem.getCountOfProducts() <= basketItem.getProduct().getBalance()))
+                return false;
         }
         for (BasketItem basketItem : products) {
             basketItem.getProduct().setBalance(basketItem.getProduct().getBalance() - basketItem.getCountOfProducts());

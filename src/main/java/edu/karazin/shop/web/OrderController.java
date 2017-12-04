@@ -14,19 +14,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("order")
 public class OrderController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+    private final CartStore cartStore;
+    private final ProductUtil productUtil;
 
-    @Autowired
-    private CartStore cartStore;
-
-    @Autowired
-    private ProductUtil productUtil;
+    public OrderController(@Autowired ProductService productService,@Autowired CartStore cartStore,
+                           @Autowired ProductUtil productUtil) {
+        this.productService = productService;
+        this.cartStore = cartStore;
+        this.productUtil = productUtil;
+    }
 
     @GetMapping(params = "cart")
     public String orderFromCart(Model model) {
-        if(!(productUtil.checkForExistanceForCart(cartStore.getProducts(), cartStore)))
-            return "run-out-of-products";
+        if(!(productUtil.checkForExistanceForCart(cartStore.getProducts(), cartStore))) {
+            model.addAttribute("products", cartStore.getProducts());
+            model.addAttribute("runout", "Not enough some products on store");
+            return "cart-list";
+        }
         model.addAttribute("products", cartStore.getProducts());
         return "order-list";
     }
@@ -36,9 +41,10 @@ public class OrderController {
         if (productUtil.checkForExistance(prodId)) {
             model.addAttribute("product", productService.getProduct(prodId));
             return "order-list";
-        } else {
-            return "run-out-of-products";
         }
+        model.addAttribute("runout", "Not enough this product on store");
+        model.addAttribute("product", productService.getProduct(prodId));
+        return "product-view";
     }
 
 }

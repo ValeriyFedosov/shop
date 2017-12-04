@@ -57,12 +57,13 @@
                             <h6 class="card-title">${prod.description}</h6>
                             <h4 class="card-title">Balance: ${prod.balance}</h4>
                             <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN') or hasRole('ROLE_ANONYMOUS')">
-                                <a href="/cart?add&prodId=${prod.id}" class="btn btn-info" role="button">Add to Cart</a>
-                                <a href="/product-view?prodId=${prod.id}" class="btn btn-info" role="button">Buy</a>
+                                <a href="/cart?add&prodId=${prod.id}" class="btn btn-info">Add to Cart</a>
+                                <a href="/product-view?prodId=${prod.id}" class="btn btn-info">Buy</a>
+                                <a href="/product-view?prodId=${prod.id}" class="btn btn-info">View</a>
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
-                                <a href="/product?delete&prodId=${prod.id}" class="btn btn-warning" role="button">Delete</a>
+                                <a href="/product?delete&prodId=${prod.id}" class="btn btn-danger">Delete</a>
                             </sec:authorize>
                         </div>
                     </div>
@@ -75,6 +76,7 @@
     <div class="action-box float-right">
         <sec:authorize access="hasRole('ROLE_ADMIN')">
             <a href="/product" class="btn btn-warning" role="button">New product</a>
+            <a href="/product?deleteAll" class="btn btn-danger">DeleteAll</a>
         </sec:authorize>
     </div>
 

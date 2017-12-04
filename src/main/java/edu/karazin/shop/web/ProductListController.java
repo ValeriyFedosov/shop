@@ -16,15 +16,13 @@ public class ProductListController {
 
 	private static final Logger log = LoggerFactory.getLogger(ProductListController.class);
 
-	@Autowired
-	private ProductService productService;
+	private final ProductService productService;
+	private final CartStore cartStore;
 
-	@Autowired
-	private CartStore cartStore;
-
-//	public ProductListController(@Autowired ProductService productService) {
-//		this.productService = productService;
-//	}
+	public ProductListController(@Autowired ProductService productService, @Autowired CartStore cartStore) {
+		this.productService = productService;
+		this.cartStore = cartStore;
+	}
 
 
 	@GetMapping

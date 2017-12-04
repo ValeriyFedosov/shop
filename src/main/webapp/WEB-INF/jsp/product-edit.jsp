@@ -16,7 +16,7 @@
 <body>
 <div class="center">
 
-    <form:form modelAttribute="product">
+    <form:form modelAttribute="product" enctype="multipart/form-data">
         <fieldset>
             <form:label path="title">Title:</form:label>
 	        <form:input path="title" />
@@ -32,11 +32,11 @@
 
             <form:label path="title">Balance:</form:label>
 	        <form:input path="balance" />
-	        <br />
-        </fieldset>
-
+	        <br/>
         <input type="submit" value="Save" />
     </form:form>
+
+                <h3>${error}</h3>
 
 </div>
 </body>

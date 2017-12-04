@@ -14,15 +14,18 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
-	private ProductDao dao;
+	private final ProductDao dao;
+	private final ProductUtil productUtil;
 
-	@Autowired
-	private ProductUtil productUtil;
+	public ProductServiceImpl(@Autowired ProductDao dao,@Autowired ProductUtil productUtil) {
+		this.dao = dao;
+		this.productUtil = productUtil;
+	}
 
 	public BasketItem getBasketItems(Long id) { return productUtil.convertEntityToBasketItem(dao.findById(id)); }
 
-	@Override
+
+    @Override
 	public Product getProduct(Long id) {
 		return dao.findById(id);
 	}
@@ -52,8 +55,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public Long addProduct(Product prod) {
-		return dao.save(prod).getId();
-	}
+        try {
+            return dao.save(prod).getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	@Override
 	@Transactional
@@ -66,4 +74,12 @@ public class ProductServiceImpl implements ProductService {
 	public void removeProduct(Long id) {
 		dao.delete(id);
 	}
+
+    @Override
+    @Transactional
+    public void deleteAll() {
+        for (Product product : getAll()) {
+            removeProduct(product.getId());
+        }
+    }
 }

@@ -50,6 +50,8 @@
     <h3>Total: ${total}</h3>
 
 
+    <h3>${runout}</h3>
+
     <div class="action-box">
         <a href="/products" class="btn btn-info" role="button">Back to products</a>
         <a href="/cart?deleteAll" class="btn btn-danger" role="button">RemoveAll</a>

@@ -33,14 +33,15 @@
     <br/>
     ${product.description}
     <br/>
-    Balance${product.balance}
+    Balance: ${product.balance}
     <br/>
     Cost:${product.cost}
     <br/>
     ${product.imageMimeType}
     <br/>
-    ${product.image}
-
+    ${image.i}
+    <br/>
+    <h3>${runout}</h3>
 
     <div class="action-box">
         <a href="/cart?add&prodId=${product.id}" class="btn btn-info" role="button">Add to Cart</a>

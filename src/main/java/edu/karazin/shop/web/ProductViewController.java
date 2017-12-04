@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("product-view")
 public class ProductViewController {
 
-    @Autowired
-    private ProductService productService;
 
-    @Autowired
-    private CartStore cartStore;
+    private final ProductService productService;
+    private final CartStore cartStore;
+
+    public ProductViewController(@Autowired ProductService productService,@Autowired CartStore cartStore) {
+        this.productService = productService;
+        this.cartStore = cartStore;
+    }
 
     @GetMapping
     public String listProducts(Model model, @RequestParam(name = "prodId") Long prodId) {

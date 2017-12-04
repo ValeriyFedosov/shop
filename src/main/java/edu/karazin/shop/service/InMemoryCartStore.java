@@ -20,8 +20,11 @@ public class InMemoryCartStore implements CartStore {
 	private long totalCost;
 	private long totalAmount;
 
-	@Autowired
-	private ProductUtil productUtil;
+	private final ProductUtil productUtil;
+
+	public InMemoryCartStore(@Autowired ProductUtil productUtil) {
+		this.productUtil = productUtil;
+	}
 
 	@Override
 	public List<BasketItem> getProducts() {

@@ -35,10 +35,10 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public Product save(Product prod) {
-		if (!em.contains(prod)) {
-			return em.merge(prod);
+		if (em.contains(prod)) {
+			return em.merge(prod); // uploading
 		} else {
-			em.persist(prod);
+			em.persist(prod.setIt(24L)); // creating
 			return prod;
 		}
 	}

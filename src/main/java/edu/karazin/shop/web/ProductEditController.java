@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.service.ProductService;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("product")
@@ -24,7 +28,7 @@ public class ProductEditController {
 
 	@GetMapping
 	public String newProduct(Model model) {
-		model.addAttribute("product", new Product(null, "", ""));
+		model.addAttribute("product", new Product(null, "", "", 0L, 0));
 		return "product-edit";
 	}
 
@@ -35,13 +39,23 @@ public class ProductEditController {
 	}
 
 	@PostMapping
-	public String saveProduct(Model model, Product product) {
-		productService.addProduct(product);
+	public String saveProduct(Product product, Model model) throws IOException {
+	    if (productService.addProduct(product) == null) {
+            model.addAttribute("product", new Product(null, "", "", 0L, 0));
+            model.addAttribute("error", "Such product already exists");
+            return "product-edit";
+        }
 		return "redirect:/products";
 	}
 
+//    @PostMapping
+//    public String saveProduct(@RequestParam("file") MultipartFile file, Model model) throws IOException {
+//        model.addAttribute("image", file);
+//        return "product-view";
+//    }
+
 	@PostMapping(path = "{id}")
-	public String updateProduct(Product product) {
+	public String updateProduct(Product product) throws IOException {
 		productService.updateProduct(product);
 		return "redirect:/products";
 	}
@@ -49,6 +63,12 @@ public class ProductEditController {
 	@GetMapping(params = "delete")
 	public String deleteProduct(@RequestParam("prodId") Long prodId, Model model) {
 		productService.removeProduct(prodId);
+		return "redirect:/products";
+	}
+
+	@GetMapping(params = "deleteAll")
+	public String deleteAllProducts() {
+		productService.deleteAll();
 		return "redirect:/products";
 	}
 }

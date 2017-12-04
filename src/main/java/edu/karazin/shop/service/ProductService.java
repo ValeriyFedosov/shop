@@ -22,4 +22,6 @@ public interface ProductService {
 	void removeProduct(Long id);
 
 	BasketItem getBasketItems(Long id);
+
+	void deleteAll();
 }

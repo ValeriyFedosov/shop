@@ -1,19 +1,25 @@
 package edu.karazin.shop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Arrays;
 
 @Entity
-public class Product {
+public class
+Product {
 
 	@Id
     @GeneratedValue
 	private Long id;
+
+    @Column(unique = true, nullable = false)
 	private String title;
+
+    @Column(unique = true, nullable = false)
 	private String description;
-	private byte[] image;
+    private byte[] image;
 	private String imageMimeType;
 	private long cost;
 	private int balance;
@@ -21,11 +27,11 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(Long id, String title, String description) {
-		this(id, title, description, null, null, 0L, 0);
-	}
+    public Product(Long id, String title, String description, long cost, int balance) {
+        this(id, title, description, null, null, cost, balance);
+    }
 
-	public Product(Long id, String title, String description, byte[] image, String imageMimeType, long cost, int balance) {
+    public Product(Long id, String title, String description, byte[] image, String imageMimeType, long cost, int balance) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -42,6 +48,10 @@ public class Product {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public Product setIt(Long id) {
+		this.id = id;
+		return this;
+	}
 
 	public String getTitle() {
 		return title;
@@ -55,6 +65,7 @@ public class Product {
 		return description;
 	}
 
+	@Column(unique = true, nullable = false)
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -92,26 +103,36 @@ public class Product {
 	}
 
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-		Product product = (Product) o;
+        Product product = (Product) o;
 
-		return id != null ? id.equals(product.id) : product.id == null;
-	}
+        if (!title.equals(product.title)) return false;
+        return description.equals(product.description);
+    }
 
-	@Override
-	public int hashCode() {
-		return id != null ? id.hashCode() : 0;
-	}
+    @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + description.hashCode();
+        return result;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", image=" + Arrays.toString(image) +
+                ", imageMimeType='" + imageMimeType + '\'' +
+                ", cost=" + cost +
+                ", balance=" + balance +
                 '}';
     }
+
+
 }
