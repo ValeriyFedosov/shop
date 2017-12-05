@@ -6,9 +6,12 @@ import edu.karazin.shop.model.Product;
 import edu.karazin.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -58,18 +61,20 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public Long addProduct(Product prod) {
+	public Long addProduct(Product prod, MultipartFile img) throws IOException {
 			for (Product product : getAll()) {
 				if (prod.equals(product)) {
 					return null;
 				}
             }
+			prod.setImage(ImgPersister.imgPersist(img));
             return productRepository.save(prod).getId();
     }
 
 	@Override
 	@Transactional
-	public void updateProduct(Product prod) {
+	public void updateProduct(Product prod, MultipartFile img) throws IOException {
+        prod.setImage(ImgPersister.imgPersist(img));
 		productRepository.save(prod);
 	}
 

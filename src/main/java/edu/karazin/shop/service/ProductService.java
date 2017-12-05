@@ -2,7 +2,9 @@ package edu.karazin.shop.service;
 
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
@@ -15,9 +17,9 @@ public interface ProductService {
 
 	List<Product> searchProducts(String searchText);
 
-	Long addProduct(Product prod);
+	Long addProduct(Product prod, MultipartFile img) throws IOException;
 
-	void updateProduct(Product prod);
+	void updateProduct(Product prod, MultipartFile img) throws IOException;
 
 	void removeProduct(Long id);
 

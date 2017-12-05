@@ -33,8 +33,14 @@
             <form:label path="title">Balance:</form:label>
 	        <form:input path="balance" />
 	        <br/>
+
+                <form:form path="title">Please select a file to upload</form:form>
+                <input type="file" name="img" />
+            <br/>
         <input type="submit" value="Save" />
     </form:form>
+
+
 
                 <h3>${error}</h3>
 

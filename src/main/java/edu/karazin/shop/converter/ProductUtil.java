@@ -39,15 +39,15 @@ public class ProductUtil {
         }
     }
 
-    public boolean checkForExistance(Long prodId) {
-        if (productService.getProduct(prodId).getBalance() != 0) {
-            Product product = productService.getProduct(prodId);
-            product.setBalance(product.getBalance() - 1);
-            productService.updateProduct(product);
-            return true;
-        }
-        return false;
-    }
+//    public boolean checkForExistance(Long prodId) {
+//        if (productService.getProduct(prodId).getBalance() != 0) {
+//            Product product = productService.getProduct(prodId);
+//            product.setBalance(product.getBalance() - 1);
+//            productService.updateProduct(product);
+//            return true;
+//        }
+//        return false;
+//    }
 
     public boolean checkForExistanceForCart(List<BasketItem> products, CartStore cartStore) {
         for (BasketItem basketItem : cartStore.getProducts()) {
@@ -56,7 +56,7 @@ public class ProductUtil {
         }
         for (BasketItem basketItem : products) {
             basketItem.getProduct().setBalance(basketItem.getProduct().getBalance() - basketItem.getCountOfProducts());
-            productService.updateProduct(basketItem.getProduct());
+           // productService.updateProduct(basketItem.getProduct());
         }
         return true;
     }

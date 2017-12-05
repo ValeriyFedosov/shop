@@ -1,4 +1,4 @@
-package edu.karazin.shop.config;
+package edu.karazin.shop.config.security;
 
 import edu.karazin.shop.model.Role;
 import edu.karazin.shop.model.User;

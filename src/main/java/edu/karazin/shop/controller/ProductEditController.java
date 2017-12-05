@@ -1,5 +1,6 @@
 package edu.karazin.shop.controller;
 
+import edu.karazin.shop.service.ImgPersister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.service.ProductService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -24,11 +26,25 @@ public class ProductEditController {
 		this.productService = productService;
 	}
 
+	// create
+
 	@GetMapping
 	public String newProduct(Model model) {
-		model.addAttribute("product", new Product(null, "", "", 0L, 0));
+		model.addAttribute("product", new Product(null, "", "",null, null, 0L, 0));
 		return "product-edit";
 	}
+
+    @PostMapping
+    public String saveProduct(@RequestParam("img") MultipartFile img, Product product, Model model) throws IOException {
+        if (productService.addProduct(product, img) == null) {
+            model.addAttribute("product", new Product(null, "", "",0L, 0));
+            model.addAttribute("error", "Such product already exists");
+            return "product-edit";
+        }
+        return "redirect:/products";
+    }
+
+    // edit
 
 	@GetMapping(path = "{id}")
 	public String editProduct(Model model, @PathVariable("id") Long productId) {
@@ -36,27 +52,12 @@ public class ProductEditController {
 		return "product-edit";
 	}
 
-	@PostMapping
-	public String saveProduct(Product product, Model model) throws IOException {
-	    if (productService.addProduct(product) == null) {
-            model.addAttribute("product", new Product(null, "", "", 0L, 0));
-            model.addAttribute("error", "Such product already exists");
-            return "product-edit";
-        }
-		return "redirect:/products";
-	}
+    @PostMapping(path = "{id}")
+    public String updateProduct(@RequestParam("img") MultipartFile img, Product product) throws IOException {
+        productService.updateProduct(product, img);
+        return "redirect:/products";
+    }
 
-//    @PostMapping
-//    public String saveProduct(@RequestParam("file") MultipartFile file, Model model) throws IOException {
-//        model.addAttribute("image", file);
-//        return "product-view";
-//    }
-
-	@PostMapping(path = "{id}")
-	public String updateProduct(Product product) throws IOException {
-		productService.updateProduct(product);
-		return "redirect:/products";
-	}
 
 	@GetMapping(params = "delete")
 	public String deleteProduct(@RequestParam("prodId") Long prodId, Model model) {

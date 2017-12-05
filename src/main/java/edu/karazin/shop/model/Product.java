@@ -19,6 +19,8 @@ Product {
 
     @Column(unique = true, nullable = false)
 	private String description;
+
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
 	private String imageMimeType;
 	private long cost;
