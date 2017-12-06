@@ -31,6 +31,7 @@
 
 
     <div class="action-box">
+        <a href="/login" class="btn btn-warning" role="button">Sign In</a>
         <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
             <a href="/login" class="btn btn-warning" role="button">Login</a>
         </sec:authorize>
