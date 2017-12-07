@@ -1,6 +1,6 @@
 package edu.karazin.shop.controller;
 
-import edu.karazin.shop.service.ImgPersister;
+import edu.karazin.shop.util.ProductUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,11 @@ public class ProductEditController {
 	}
 
     @PostMapping(path = "{id}")
-    public String updateProduct(@RequestParam("img") MultipartFile img, Product product) throws IOException {
+    public String updateProduct(@RequestParam("img") MultipartFile img, Product product, Model model) throws IOException {
+		if (!(ProductUtil.validate(product))) {
+			model.addAttribute("error", "Some fields have not passed validation");
+			return "product-edit";
+		}
         productService.updateProduct(product, img);
         return "redirect:/products";
     }

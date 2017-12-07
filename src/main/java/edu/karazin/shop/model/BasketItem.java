@@ -3,7 +3,7 @@ package edu.karazin.shop.model;
 public class BasketItem {
 
     private Product product;
-    private long countOfCost;
+    private double countOfCost;
     private int countOfProducts;
 
     public Product getProduct() {
@@ -14,11 +14,11 @@ public class BasketItem {
         this.product = product;
     }
 
-    public long getCountOfCost() {
+    public double getCountOfCost() {
         return countOfCost;
     }
 
-    public void setCountOfCost(long countOfCost) {
+    public void setCountOfCost(double countOfCost) {
         this.countOfCost = countOfCost;
     }
 

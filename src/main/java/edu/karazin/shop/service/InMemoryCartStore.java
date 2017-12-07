@@ -2,7 +2,7 @@
 package edu.karazin.shop.service;
 
 import edu.karazin.shop.model.BasketItem;
-import edu.karazin.shop.converter.ProductUtil;
+import edu.karazin.shop.util.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -17,7 +17,7 @@ import java.util.List;
 public class InMemoryCartStore implements CartStore {
 
 	private final List<BasketItem> products = new ArrayList<>();
-	private long totalCost;
+	private double totalCost;
 	private long totalAmount;
 
 	private final ProductUtil productUtil;
@@ -35,7 +35,7 @@ public class InMemoryCartStore implements CartStore {
 	@Override
 	public void addProduct(BasketItem prod) {
 		if (products.contains(prod)) {
-			productUtil.increaseProduct(prod, products);
+			productUtil.addTheSameProductToCart(prod, products);
         } else {
 			prod.setCountOfCost(prod.getProduct().getCost());
 			prod.setCountOfProducts(prod.getCountOfProducts() + 1);
@@ -65,7 +65,7 @@ public class InMemoryCartStore implements CartStore {
 
 
     @Override
-    public Long getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 

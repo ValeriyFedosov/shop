@@ -1,6 +1,6 @@
 package edu.karazin.shop.web;
 
-import edu.karazin.shop.model.Role;
+import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.model.User;
 
 public class UserForm extends LoginForm {

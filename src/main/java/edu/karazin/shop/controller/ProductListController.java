@@ -1,6 +1,7 @@
 package edu.karazin.shop.controller;
 
 import edu.karazin.shop.service.CartStore;
+import edu.karazin.shop.util.ProductUtil;
 import edu.karazin.shop.web.ProductSearchForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,15 +19,16 @@ public class ProductListController {
 	private static final Logger log = LoggerFactory.getLogger(ProductListController.class);
 
 	private final ProductService productService;
+	private final ProductUtil productUtil;
 	private final CartStore cartStore;
 
-	public ProductListController(@Autowired ProductService productService, @Autowired CartStore cartStore) {
-		this.productService = productService;
-		this.cartStore = cartStore;
-	}
+    public ProductListController(@Autowired ProductService productService,@Autowired ProductUtil productUtil, @Autowired CartStore cartStore) {
+        this.productService = productService;
+        this.productUtil = productUtil;
+        this.cartStore = cartStore;
+    }
 
-
-	@GetMapping
+    @GetMapping
 	public String listProducts(Model model,
 			@RequestParam(name = "searchText", required = false) String searchText) {
 		model.addAttribute("products", productService.getAll());
@@ -42,4 +44,6 @@ public class ProductListController {
         model.addAttribute("cart", cartStore.getTotalAmount());
 		return "product-list";
 	}
+
+
 }

@@ -14,7 +14,7 @@ public interface CartStore {
 
 	void removeAll();
 
-	Long getTotalCost();
+	double getTotalCost();
 
 	Long getTotalAmount();
 }

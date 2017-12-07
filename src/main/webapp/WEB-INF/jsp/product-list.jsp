@@ -63,6 +63,7 @@
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
                                 <a href="/product?delete&prodId=${prod.id}" class="btn btn-danger">Delete</a>
+                                <a href="/discount" class="btn btn-danger">Set discount</a>
                             </sec:authorize>
                         </div>
                     </div>
@@ -76,6 +77,7 @@
         <sec:authorize access="hasRole('ROLE_ADMIN')">
             <a href="/product" class="btn btn-warning" role="button">New product</a>
             <a href="/product?deleteAll" class="btn btn-danger">DeleteAll</a>
+            <a href="/discount" class="btn btn-danger">Set discount</a>
         </sec:authorize>
     </div>
 

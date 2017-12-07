@@ -1,6 +1,6 @@
 package edu.karazin.shop.controller;
 
-import edu.karazin.shop.model.Role;
+import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.service.UserService;
 import edu.karazin.shop.web.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;

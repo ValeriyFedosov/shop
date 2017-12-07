@@ -7,8 +7,7 @@ import javax.persistence.Id;
 import java.util.Arrays;
 
 @Entity
-public class
-Product {
+public class Product {
 
 	@Id
     @GeneratedValue
@@ -23,17 +22,21 @@ Product {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
 	private String imageMimeType;
-	private long cost;
+	private double cost;
 	private int balance;
 
 	public Product() {
 	}
 
-    public Product(Long id, String title, String description, long cost, int balance) {
-        this(id, title, description, null, null, cost, balance);
-    }
+	public Product(Long id, String title, String description, double cost, int balance) {
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.cost = cost;
+		this.balance = balance;
+	}
 
-    public Product(Long id, String title, String description, byte[] image, String imageMimeType, long cost, int balance) {
+	public Product(Long id, String title, String description, byte[] image, String imageMimeType, double cost, int balance) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -88,11 +91,11 @@ Product {
 		this.imageMimeType = imageMimeType;
 	}
 
-	public long getCost() {
+	public double getCost() {
 		return cost;
 	}
 
-	public void setCost(long cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 

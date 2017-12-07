@@ -1,6 +1,9 @@
 package edu.karazin.shop.model;
 
+import edu.karazin.shop.model.enums.Role;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {

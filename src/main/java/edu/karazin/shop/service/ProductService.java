@@ -13,6 +13,8 @@ public interface ProductService {
 
 	List<Product> getAll();
 
+	void setDiscountForAllProducts(Long discountPercent);
+
 	List<Product> getBasketItems(List<BasketItem> basketItems);
 
 	List<Product> searchProducts(String searchText);
@@ -20,6 +22,8 @@ public interface ProductService {
 	Long addProduct(Product prod, MultipartFile img) throws IOException;
 
 	void updateProduct(Product prod, MultipartFile img) throws IOException;
+
+	void updateProduct(Product prod);
 
 	void removeProduct(Long id);
 

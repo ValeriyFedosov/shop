@@ -1,6 +1,6 @@
 package edu.karazin.shop.config.security;
 
-import edu.karazin.shop.model.Role;
+import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.model.User;
 import edu.karazin.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

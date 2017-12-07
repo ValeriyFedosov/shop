@@ -1,6 +1,6 @@
 package edu.karazin.shop.service;
 
-import edu.karazin.shop.converter.ProductUtil;
+import edu.karazin.shop.util.ProductUtil;
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.repository.ProductRepository;
@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -67,16 +66,33 @@ public class ProductServiceImpl implements ProductService {
 					return null;
 				}
             }
-			prod.setImage(ImgPersister.imgPersist(img));
+			prod.setImage(ProductUtil.imgPersist(img));
             return productRepository.save(prod).getId();
+    }
+
+    @Override
+    @Transactional
+	public void setDiscountForAllProducts(Long discountPercent) {
+		for (Product product : getAll()) {
+			product.setCost(product.getCost() - (product.getCost() / 100 * discountPercent));
+            productRepository.save(product);
+		}
+	}
+
+
+    @Override
+    @Transactional
+    public void updateProduct(Product prod) {
+        productRepository.save(prod);
     }
 
 	@Override
 	@Transactional
 	public void updateProduct(Product prod, MultipartFile img) throws IOException {
-        prod.setImage(ImgPersister.imgPersist(img));
+        prod.setImage(ProductUtil.imgPersist(img));
 		productRepository.save(prod);
 	}
+
 
 	@Override
 	@Transactional

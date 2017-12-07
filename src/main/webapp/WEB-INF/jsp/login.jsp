@@ -18,7 +18,7 @@
 
     <form name="f" th:action="@{/login}" method="post">
         <fieldset>
-            <legend>Please Login</legend>
+            <legend>Please Sign In</legend>
             <div th:if="${param.error}" class="alert alert-error">
                 Invalid username and password.
             </div>
