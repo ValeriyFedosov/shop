@@ -16,13 +16,14 @@
 <body>
 <div class="center">
 
-    <form name="f" th:action="@{/login}" method="post">
+
+    <form name="f" method="post">
         <fieldset>
             <legend>Please Sign In</legend>
-            <div th:if="${param.error}" class="alert alert-error">
+            <div class="alert alert-error">
                 Invalid username and password.
             </div>
-            <div th:if="${param.logout}" class="alert alert-success">
+            <div class="alert alert-success">
                 You have been logged out.
             </div>
             <label for="username">Username</label>

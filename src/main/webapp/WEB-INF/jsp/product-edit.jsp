@@ -22,19 +22,19 @@
 	        <form:input path="title" />
 	        <br />
 
-            <form:label path="title">Description:</form:label>
+            <form:label path="description">Description:</form:label>
 	        <form:input path="description" />
 	        <br />
 
-            <form:label path="title">Cost:</form:label>
+            <form:label path="cost">Cost:</form:label>
 	        <form:input path="cost" />
 	        <br />
 
-            <form:label path="title">Balance:</form:label>
+            <form:label path="balance">Balance:</form:label>
 	        <form:input path="balance" />
 	        <br/>
 
-                <form:form path="title">Please select a file to upload</form:form>
+                <form:form path="file">Please select a file to upload</form:form>
                 <input type="file" name="img" />
             <br/>
         <input type="submit" value="Save" />

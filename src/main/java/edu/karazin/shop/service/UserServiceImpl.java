@@ -5,6 +5,8 @@ import edu.karazin.shop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -16,6 +18,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        for (User o : userRepository.findAll()) {
+            if (o.equals(user)) {
+                return null;
+            }
+        }
         return userRepository.save(user);
     }
 
@@ -28,4 +35,5 @@ public class UserServiceImpl implements UserService {
     public User getUser(String login) {
         return userRepository.findByLogin(login);
     }
+
 }

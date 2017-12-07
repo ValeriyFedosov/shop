@@ -2,6 +2,8 @@ package edu.karazin.shop.service;
 
 import edu.karazin.shop.model.User;
 
+import java.util.List;
+
 public interface UserService {
 
     User createUser(User user);

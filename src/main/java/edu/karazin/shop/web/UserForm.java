@@ -26,7 +26,8 @@ public class UserForm extends LoginForm {
         this.role = role;
     }
 
-    public User convertToUser() {
+    public User convertToUser(Role role) {
+        setRole(role);
         return new User(getLogin(), getPassword(), getRole());
     }
 }

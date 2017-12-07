@@ -7,7 +7,7 @@
 
 <html lang="en">
 <head>
-    <title>Product List</title>
+    <title>Create Admin</title>
     <link rel="stylesheet" href="${resourceContext}/bootstrap.min.css">
     <link rel="stylesheet" href="${resourceContext}/layout.css">
     <link rel="stylesheet" href="${resourceContext}/style.css">
@@ -19,11 +19,10 @@
     <form:form modelAttribute="userForm" cssClass="search-box">
         <form:input path="login" />
         <form:input path="password" />
-
-        <form:select path="role">
-            <form:options items="${roles}"/>
-        </form:select>
         <input type="submit" class="btn btn-success" value="create" />
+
+        <br/>
+        <h3>${error}</h3>
     </form:form>
 </div>
 </body>

@@ -31,9 +31,12 @@
 
 
     <div class="action-box">
-        <a href="/login" class="btn btn-warning" role="button">Sign In</a>
         <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
+            <a href="/user" class="btn btn-warning" role="button">Sign In</a>
             <a href="/login" class="btn btn-warning" role="button">Login</a>
+        </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <a href="/admin" class="btn btn-warning" role="button">Create Admin</a>
         </sec:authorize>
         <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
             <a href="/logout" class="btn btn-warning" role="button">Logout</a>
