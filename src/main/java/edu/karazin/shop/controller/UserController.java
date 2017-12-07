@@ -35,6 +35,6 @@ public class UserController {
             model.addAttribute("error", "Such user already exists");
             return "userSignIn";
         }
-        return "redirect:/products";
+        return "forward:/login";
     }
 }

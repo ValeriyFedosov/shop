@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,10 +19,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        for (User o : userRepository.findAll()) {
-            if (o.equals(user)) {
-                return null;
+        try {
+            for (User o : userRepository.findAllBy(user.getRole())) {
+                if (o.equals(user)) {
+                    return null;
+                }
             }
+        } catch (NoSuchElementException e) {
+            return userRepository.save(user);
         }
         return userRepository.save(user);
     }

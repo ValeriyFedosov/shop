@@ -39,7 +39,7 @@
     <br/>
     ${product.imageMimeType}
     <br/>
-    <img th:src="@{'src/main/webapp/WEB-INF/static' + ${product.image}}"/>
+    <img src="" />
     <br/>
     <h3>${runout}</h3>
 

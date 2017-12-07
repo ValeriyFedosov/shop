@@ -24,6 +24,9 @@
         <br/>
         <h3>${error}</h3>
     </form:form>
+
+    <br/>
+    <a href="/products" class="btn btn-info">Back to products</a>
 </div>
 </body>
 </html>
