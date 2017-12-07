@@ -26,11 +26,11 @@
                 You have been logged out.
             </div>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username"/>
+            <input id="username" name="username"/>
             <label for="password">Password</label>
             <input type="password" id="password" name="password"/>
             <div class="form-actions">
-                <button type="submit" class="btn">Log in</button>
+                <button class="btn">Log in</button>
             </div>
         </fieldset>
     </form>

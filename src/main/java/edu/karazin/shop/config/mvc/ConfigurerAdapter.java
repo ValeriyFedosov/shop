@@ -12,15 +12,4 @@ public class ConfigurerAdapter extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("login");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
-
-//    @Override
-//    public void configureViewResolvers(ViewResolverRegistry registry) {
-//        registry.viewResolver(new ThymeleafViewResolver());
-//
-//        InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
-//        internalResourceViewResolver.setViewClass(JstlView.class);
-//        internalResourceViewResolver.setPrefix("/WEB-INF/jsp");
-//        internalResourceViewResolver.setSuffix(".jsp");
-//        registry.viewResolver(internalResourceViewResolver);
-//    }
 }
