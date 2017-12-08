@@ -47,4 +47,10 @@ public class OrderController {
         return "product-view";
     }
 
+    @GetMapping(params = "dropCart")
+    public String backToProductAndDropCart() {
+        cartStore.removeAll();
+        return "forward:products";
+    }
+
 }

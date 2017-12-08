@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 					return null;
 				}
             }
-			prod.setImage(ProductUtil.imgPersist(img));
+			prod.setImageName(ProductUtil.imgPersist(img));
             return productRepository.save(prod).getId();
     }
 
@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public void updateProduct(Product prod, MultipartFile img) throws IOException {
-        prod.setImage(ProductUtil.imgPersist(img));
+        prod.setImageName(ProductUtil.imgPersist(img));
 		productRepository.save(prod);
 	}
 

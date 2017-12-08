@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Arrays;
 
 @Entity
 public class Product {
@@ -18,10 +17,7 @@ public class Product {
 
     @Column(unique = true, nullable = false)
 	private String description;
-
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] image;
-	private String imageMimeType;
+    private String imageName;
 	private double cost;
 	private int balance;
 
@@ -36,12 +32,11 @@ public class Product {
 		this.balance = balance;
 	}
 
-	public Product(Long id, String title, String description, byte[] image, String imageMimeType, double cost, int balance) {
+	public Product(Long id, String title, String description, String imageName, double cost, int balance) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.image = image;
-		this.imageMimeType = imageMimeType;
+		this.imageName = imageName;
 		this.cost = cost;
 		this.balance = balance;
 	}
@@ -75,23 +70,15 @@ public class Product {
 		this.description = description;
 	}
 
-	public byte[] getImage() {
-		return image;
-	}
+    public String getImageName() {
+        return imageName;
+    }
 
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
 
-	public String getImageMimeType() {
-		return imageMimeType;
-	}
-
-	public void setImageMimeType(String imageMimeType) {
-		this.imageMimeType = imageMimeType;
-	}
-
-	public double getCost() {
+    public double getCost() {
 		return cost;
 	}
 
@@ -132,8 +119,6 @@ public class Product {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", image=" + Arrays.toString(image) +
-                ", imageMimeType='" + imageMimeType + '\'' +
                 ", cost=" + cost +
                 ", balance=" + balance +
                 '}';

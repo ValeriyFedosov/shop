@@ -41,7 +41,8 @@
                 <h3>${prod.product.description}</h3>
                 <h3>${prod.countOfCost}</h3>
                 <h3>${prod.countOfProducts}</h3>
-                <a href="/cart?delete&prodId=${prod.product.id}" class="btn btn-danger" role="button">Delete</a>
+                <a href="/cart?delete&prodId=${prod.product.id}" class="btn btn-danger">Delete</a>
+                <a href="/cart?add&prodId=${prod.product.id}" class="btn btn-warning">Add</a>
             </li>
         </c:forEach>
     </ul>

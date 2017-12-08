@@ -37,9 +37,7 @@
     <br/>
     Cost:${product.cost}
     <br/>
-    ${product.imageMimeType}
-    <br/>
-    <img src="" />
+    <img src="${product.imageName}" />
     <br/>
     <h3>${runout}</h3>
 

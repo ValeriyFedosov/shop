@@ -20,15 +20,18 @@
                ${prod.countOfCost}
                    <br>
                ${prod.countOfProducts}
+               <br/>
+                   <img src="${prod.product.imageName}" />
            </li>
         </c:forEach>
     </ul>
 
     <h3>${product.title}</h3>
     <h3>${product.cost}</h3>
+    <img src="${product.imageName}" />
 
 
-    <a href="/products" class="btn btn-info" role="button">Back to products</a>
+    <a href="/order?dropCart" class="btn btn-info" role="button">Back to products</a>
     <a href="/cart" class="btn btn-info" role="button">Back to Cart</a>
 
 </body>

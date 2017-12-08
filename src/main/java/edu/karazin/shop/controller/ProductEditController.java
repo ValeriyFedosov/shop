@@ -30,7 +30,7 @@ public class ProductEditController {
 
 	@GetMapping
 	public String newProduct(Model model) {
-		model.addAttribute("product", new Product(null, "", "",null, null, 0L, 0));
+		model.addAttribute("product", new Product(null, "", "",null, 0L, 0));
 		return "product-edit";
 	}
 

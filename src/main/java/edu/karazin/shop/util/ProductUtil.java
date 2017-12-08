@@ -48,17 +48,15 @@ public class ProductUtil {
         }
     }
 
-    public static byte[] imgPersist(MultipartFile img) throws IOException {
+    public static String imgPersist(MultipartFile img) throws IOException {
         if (img.isEmpty()) return null;
         String imgName = img.getOriginalFilename();
-        File upl = new File("src/main/webapp/WEB-INF/static/".concat(imgName));
+        File upl = new File("src/main/resources/static/".concat(imgName));
         upl.createNewFile();
         try (FileOutputStream fout = new FileOutputStream(upl)) {
             fout.write(img.getBytes());
         }
-        Path path = Paths.get("src/main/webapp/WEB-INF/static/".concat(imgName));
-        Files.readAllBytes(path);
-        return Files.readAllBytes(path);
+        return "src/main/resource/static/".concat(imgName);
     }
 
     // order
