@@ -1,8 +1,10 @@
-package edu.karazin.shop.service;
+package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.model.*;
-import edu.karazin.shop.repository.OrdersRepository;
 import edu.karazin.shop.repository.PurchaseItemRepository;
+import edu.karazin.shop.repository.UserRepository;
+import edu.karazin.shop.service.ProductService;
+import edu.karazin.shop.service.UserService;
 import edu.karazin.shop.util.ProductUtil;
 import edu.karazin.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,13 @@ public class ProductServiceImpl implements ProductService {
 	private final ProductRepository productRepository;
 	private ProductUtil productUtil;
 	private final PurchaseItemRepository purchaseItemRepository;
-	private final OrdersRepository ordersRepository;
+	private final UserService userService;
 
-	public ProductServiceImpl(@Autowired ProductRepository productRepository, @Autowired OrdersRepository ordersRepository,
-                              @Autowired PurchaseItemRepository purchaseItemRepository) {
+	public ProductServiceImpl(@Autowired ProductRepository productRepository, @Autowired PurchaseItemRepository purchaseItemRepository,
+							  @Autowired UserService userService) {
 		this.productRepository = productRepository;
 		this.purchaseItemRepository = purchaseItemRepository;
-		this.ordersRepository = ordersRepository;
+		this.userService = userService;
 	}
 
     @Autowired
@@ -60,17 +62,22 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
     @Transactional
-	public List<Long> addPurchaseItems(List<PurchaseItem> purchaseItems) {
-	    List<Long> ids = new ArrayList<>();
+	public void addPurchaseItems(List<PurchaseItem> purchaseItems) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+		String date = simpleDateFormat.format(new Date().getTime());
         for (PurchaseItem purchaseItem : purchaseItems) {
-            ids.add(purchaseItemRepository.save(purchaseItem).getId());
+        	purchaseItem.setDate(date);
+        	purchaseItem.setUser_id(userService.getCurrentAuthenticatedUser());
+            purchaseItemRepository.save(purchaseItem);
         }
-        return ids;
 	}
 
     @Override
-    public Long addPurchaseItem(PurchaseItem purchaseItem) {
-        return purchaseItemRepository.save(purchaseItem).getId();
+    public void addPurchaseItem(PurchaseItem purchaseItem) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+        purchaseItem.setDate(simpleDateFormat.format(new Date().getTime()));
+        purchaseItem.setUser_id(userService.getCurrentAuthenticatedUser());
+	    purchaseItemRepository.save(purchaseItem);
     }
 
     @Override
@@ -131,28 +138,4 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    @Override
-    public void makeOrderForCart(List<Long> ids, User currentAuthenticatedUser) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
-        String date = simpleDateFormat.format(new Date().getTime());
-
-        for (Long id : ids) {
-            ordersRepository.save(new Orders(currentAuthenticatedUser.getId(), id, date));
-        }
-
-    }
-
-    @Override
-    public void makeOrder(Long id, User currentAuthenticatedUser) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
-        String date = simpleDateFormat.format(new Date().getTime());
-        ordersRepository.save(new Orders(currentAuthenticatedUser.getId(), id,  date));
-    }
-}
-
-
-class A {
-    public static void main(String[] args) {
-        String s = "asdas";
-    }
 }

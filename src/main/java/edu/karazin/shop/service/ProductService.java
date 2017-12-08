@@ -19,9 +19,9 @@ public interface ProductService {
 
 	List<Product> getBasketItems(List<BasketItem> basketItems);
 
-	List<Long> addPurchaseItems(List<PurchaseItem> purchaseItems);
+	void addPurchaseItems(List<PurchaseItem> purchaseItems);
 
-    Long addPurchaseItem(PurchaseItem purchaseItem);
+	void addPurchaseItem(PurchaseItem purchaseItem);
 
 	List<Product> searchProducts(String searchText);
 
@@ -36,8 +36,4 @@ public interface ProductService {
 	BasketItem getBasketItems(Long id);
 
 	void deleteAll();
-
-    void makeOrderForCart(List<Long> ids, User currentAuthenticatedUser);
-
-    void makeOrder(Long id, User currentAuthenticatedUser);
 }

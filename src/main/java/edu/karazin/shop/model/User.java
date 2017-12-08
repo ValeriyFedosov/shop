@@ -18,6 +18,8 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy="user_id")
+    private List<PurchaseItem> purchaseItems;
 
     public User() {
     }
@@ -26,6 +28,14 @@ public class User {
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    public List<PurchaseItem> getPurchaseItems() {
+        return purchaseItems;
+    }
+
+    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
+        this.purchaseItems = purchaseItems;
     }
 
     public Long getId() {

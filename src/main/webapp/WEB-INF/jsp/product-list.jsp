@@ -39,7 +39,8 @@
         <a href="/admin" class="btn btn-warning" role="button">Create Admin</a>
         </sec:authorize>
         <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
-            <a href="/logout" class="btn btn-warning" role="button">Logout</a>
+            <a href="/logout" class="btn btn-warning">Logout</a>
+            <a href="/history" class="btn btn-warning">Show purchase history</a>
         </sec:authorize>
     </div>
 <div class="center">

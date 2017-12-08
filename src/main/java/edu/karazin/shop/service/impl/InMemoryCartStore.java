@@ -1,7 +1,8 @@
 
-package edu.karazin.shop.service;
+package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.util.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

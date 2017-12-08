@@ -1,7 +1,8 @@
-package edu.karazin.shop.service;
+package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.repository.UserRepository;
 import edu.karazin.shop.model.User;
+import edu.karazin.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
