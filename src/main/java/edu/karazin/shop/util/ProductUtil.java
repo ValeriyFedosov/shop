@@ -56,7 +56,7 @@ public class ProductUtil {
         try (FileOutputStream fout = new FileOutputStream(upl)) {
             fout.write(img.getBytes());
         }
-        return "src/main/resource/static/".concat(imgName);
+        return imgName;
     }
 
     // order
