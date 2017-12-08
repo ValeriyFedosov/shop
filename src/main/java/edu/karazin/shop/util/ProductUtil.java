@@ -56,6 +56,15 @@ public class ProductUtil {
         return purchaseItems;
     }
 
+    public PurchaseItem convertProductToPurchaseItems(Product product) {
+        PurchaseItem purchaseItem = new PurchaseItem();
+        purchaseItem.setTitle(product.getTitle());
+        purchaseItem.setDescription(product.getDescription());
+        purchaseItem.setCost(product.getCost());
+        purchaseItem.setImageName(product.getImageName());
+        purchaseItem.setPurchaseItemAmount(1L);
+        return purchaseItem;
+    }
 
 
     public void addTheSameProductToCart(BasketItem prod, List<BasketItem> basketItems) {
@@ -115,5 +124,6 @@ public class ProductUtil {
         if(description.toCharArray().length > 1000) return false;
         return true;
     }
+
 
 }

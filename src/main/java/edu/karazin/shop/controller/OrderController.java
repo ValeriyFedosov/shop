@@ -39,7 +39,7 @@ public class OrderController {
         }
         model.addAttribute("products", cartStore.getProducts());
         List<Long> ids = productService.addPurchaseItems(productUtil.convertBasketItemsToPurchaseItems(cartStore.getProducts()));
-        productService.makeOrder(ids, userService.getCurrentAuthenticatedUser());
+        productService.makeOrderForCart(ids, userService.getCurrentAuthenticatedUser());
         return "order-list";
     }
 
@@ -47,6 +47,8 @@ public class OrderController {
     public String orderOne(@RequestParam("prodId") Long prodId, Model model) {
         if (productUtil.checkForExistanceAndDecrement(prodId)) {
             model.addAttribute("product", productService.getProduct(prodId));
+            Long id = productService.addPurchaseItem(productUtil.convertProductToPurchaseItems(productService.getProduct(prodId)));
+            productService.makeOrder(id, userService.getCurrentAuthenticatedUser());
             return "order-list";
         }
         model.addAttribute("runout", "Not enough this product on store");

@@ -68,7 +68,12 @@ public class ProductServiceImpl implements ProductService {
         return ids;
 	}
 
-	@Override
+    @Override
+    public Long addPurchaseItem(PurchaseItem purchaseItem) {
+        return purchaseItemRepository.save(purchaseItem).getId();
+    }
+
+    @Override
 	public List<Product> searchProducts(String searchText) {
 		if (searchText == null || searchText.trim().isEmpty()) {
 			return productRepository.findAll();
@@ -127,14 +132,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void makeOrder(List<Long> ids, User currentAuthenticatedUser) {
+    public void makeOrderForCart(List<Long> ids, User currentAuthenticatedUser) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
         String date = simpleDateFormat.format(new Date().getTime());
 
         for (Long id : ids) {
-            ordersRepository.save(new Orders(id, currentAuthenticatedUser.getId(), date));
+            ordersRepository.save(new Orders(currentAuthenticatedUser.getId(), id, date));
         }
 
+    }
+
+    @Override
+    public void makeOrder(Long id, User currentAuthenticatedUser) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+        String date = simpleDateFormat.format(new Date().getTime());
+        ordersRepository.save(new Orders(currentAuthenticatedUser.getId(), id,  date));
     }
 }
 

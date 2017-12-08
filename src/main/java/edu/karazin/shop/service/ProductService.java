@@ -21,6 +21,8 @@ public interface ProductService {
 
 	List<Long> addPurchaseItems(List<PurchaseItem> purchaseItems);
 
+    Long addPurchaseItem(PurchaseItem purchaseItem);
+
 	List<Product> searchProducts(String searchText);
 
 	Long addProduct(Product prod, MultipartFile img) throws IOException;
@@ -35,5 +37,7 @@ public interface ProductService {
 
 	void deleteAll();
 
-    void makeOrder(List<Long> ids, User currentAuthenticatedUser);
+    void makeOrderForCart(List<Long> ids, User currentAuthenticatedUser);
+
+    void makeOrder(Long id, User currentAuthenticatedUser);
 }
