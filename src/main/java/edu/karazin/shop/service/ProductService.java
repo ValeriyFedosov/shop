@@ -2,6 +2,8 @@ package edu.karazin.shop.service;
 
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
+import edu.karazin.shop.model.PurchaseItem;
+import edu.karazin.shop.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -17,6 +19,8 @@ public interface ProductService {
 
 	List<Product> getBasketItems(List<BasketItem> basketItems);
 
+	List<Long> addPurchaseItems(List<PurchaseItem> purchaseItems);
+
 	List<Product> searchProducts(String searchText);
 
 	Long addProduct(Product prod, MultipartFile img) throws IOException;
@@ -30,4 +34,6 @@ public interface ProductService {
 	BasketItem getBasketItems(Long id);
 
 	void deleteAll();
+
+    void makeOrder(List<Long> ids, User currentAuthenticatedUser);
 }

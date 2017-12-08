@@ -1,5 +1,6 @@
 package edu.karazin.shop.controller;
 
+import edu.karazin.shop.service.UserService;
 import edu.karazin.shop.util.ProductUtil;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("order")
 public class OrderController {
@@ -17,12 +20,14 @@ public class OrderController {
     private final ProductService productService;
     private final CartStore cartStore;
     private final ProductUtil productUtil;
+    private final UserService userService;
 
     public OrderController(@Autowired ProductService productService,@Autowired CartStore cartStore,
-                           @Autowired ProductUtil productUtil) {
+                           @Autowired ProductUtil productUtil, @Autowired UserService userService) {
         this.productService = productService;
         this.cartStore = cartStore;
         this.productUtil = productUtil;
+        this.userService = userService;
     }
 
     @GetMapping(params = "cart")
@@ -33,6 +38,8 @@ public class OrderController {
             return "cart-list";
         }
         model.addAttribute("products", cartStore.getProducts());
+        List<Long> ids = productService.addPurchaseItems(productUtil.convertBasketItemsToPurchaseItems(cartStore.getProducts()));
+        productService.makeOrder(ids, userService.getCurrentAuthenticatedUser());
         return "order-list";
     }
 

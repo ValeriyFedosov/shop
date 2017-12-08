@@ -2,6 +2,7 @@ package edu.karazin.shop.util;
 
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
+import edu.karazin.shop.model.PurchaseItem;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -38,6 +40,23 @@ public class ProductUtil {
         basketItem.setProduct(productService.getProduct(product.getId()));
         return basketItem;
     }
+
+    public List<PurchaseItem> convertBasketItemsToPurchaseItems(List<BasketItem> basketItems) {
+        List<PurchaseItem> purchaseItems = new ArrayList<>();
+        PurchaseItem purchaseItem;
+        for (BasketItem basketItem : basketItems) {
+            purchaseItem = new PurchaseItem();
+            purchaseItem.setCost(basketItem.getProduct().getCost());
+            purchaseItem.setDescription(basketItem.getProduct().getDescription());
+            purchaseItem.setImageName(basketItem.getProduct().getImageName());
+            purchaseItem.setTitle(basketItem.getProduct().getTitle());
+            purchaseItem.setPurchaseItemAmount(basketItem.getCountOfProducts());
+            purchaseItems.add(purchaseItem);
+        }
+        return purchaseItems;
+    }
+
+
 
     public void addTheSameProductToCart(BasketItem prod, List<BasketItem> basketItems) {
         for (BasketItem basketItem : basketItems) {

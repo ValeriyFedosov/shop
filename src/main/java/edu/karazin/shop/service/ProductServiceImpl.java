@@ -1,8 +1,9 @@
 package edu.karazin.shop.service;
 
+import edu.karazin.shop.model.*;
+import edu.karazin.shop.repository.OrdersRepository;
+import edu.karazin.shop.repository.PurchaseItemRepository;
 import edu.karazin.shop.util.ProductUtil;
-import edu.karazin.shop.model.BasketItem;
-import edu.karazin.shop.model.Product;
 import edu.karazin.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,9 +21,14 @@ public class ProductServiceImpl implements ProductService {
 
 	private final ProductRepository productRepository;
 	private ProductUtil productUtil;
+	private final PurchaseItemRepository purchaseItemRepository;
+	private final OrdersRepository ordersRepository;
 
-	public ProductServiceImpl(@Autowired ProductRepository productRepository) {
+	public ProductServiceImpl(@Autowired ProductRepository productRepository, @Autowired OrdersRepository ordersRepository,
+                              @Autowired PurchaseItemRepository purchaseItemRepository) {
 		this.productRepository = productRepository;
+		this.purchaseItemRepository = purchaseItemRepository;
+		this.ordersRepository = ordersRepository;
 	}
 
     @Autowired
@@ -48,6 +56,16 @@ public class ProductServiceImpl implements ProductService {
 			list.add(productRepository.getProductById(basketItem.getProduct().getId()));
 		}
 		return list;
+	}
+
+	@Override
+    @Transactional
+	public List<Long> addPurchaseItems(List<PurchaseItem> purchaseItems) {
+	    List<Long> ids = new ArrayList<>();
+        for (PurchaseItem purchaseItem : purchaseItems) {
+            ids.add(purchaseItemRepository.save(purchaseItem).getId());
+        }
+        return ids;
 	}
 
 	@Override
@@ -106,5 +124,23 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : getAll()) {
             removeProduct(product.getId());
         }
+    }
+
+    @Override
+    public void makeOrder(List<Long> ids, User currentAuthenticatedUser) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+        String date = simpleDateFormat.format(new Date().getTime());
+
+        for (Long id : ids) {
+            ordersRepository.save(new Orders(id, currentAuthenticatedUser.getId(), date));
+        }
+
+    }
+}
+
+
+class A {
+    public static void main(String[] args) {
+        String s = "asdas";
     }
 }

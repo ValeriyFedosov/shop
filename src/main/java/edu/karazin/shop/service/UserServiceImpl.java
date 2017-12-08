@@ -3,7 +3,10 @@ package edu.karazin.shop.service;
 import edu.karazin.shop.repository.UserRepository;
 import edu.karazin.shop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -29,6 +32,18 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         }
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public User getCurrentAuthenticatedUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String login;
+        if(principal instanceof UserDetails) {
+            login = ((UserDetails)principal).getUsername();
+        } else {
+            login = principal.toString();
+        }
+        return getUser(login);
     }
 
     @Override
