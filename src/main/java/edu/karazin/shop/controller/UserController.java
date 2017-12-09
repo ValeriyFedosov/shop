@@ -26,14 +26,14 @@ public class UserController {
     @GetMapping
     public String userCreate(Model model){
         model.addAttribute("userForm", new UserForm());
-        return "userSignIn";
+        return "sign-in";
     }
 
     @PostMapping
     public String userSave(Model model, @ModelAttribute("userForm") UserForm form) {
         if (userService.createUser(form.convertToUser(Role.ROLE_USER)) == null) {
             model.addAttribute("error", "Such user already exists");
-            return "userSignIn";
+            return "sign-in";
         }
         return "forward:/login";
     }

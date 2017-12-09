@@ -1,5 +1,6 @@
 package edu.karazin.shop.service.impl;
 
+import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.repository.UserRepository;
 import edu.karazin.shop.model.User;
 import edu.karazin.shop.service.UserService;
@@ -45,6 +46,11 @@ public class UserServiceImpl implements UserService {
             login = principal.toString();
         }
         return getUser(login);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAllBy(Role.ROLE_USER);
     }
 
     @Override

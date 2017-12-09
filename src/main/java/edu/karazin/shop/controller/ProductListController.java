@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import edu.karazin.shop.service.ProductService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("products")
 public class ProductListController {
@@ -29,12 +32,14 @@ public class ProductListController {
     }
 
     @GetMapping
-	public String listProducts(Model model,
-			@RequestParam(name = "searchText", required = false) String searchText) {
+	public String listProducts(Model model, HttpServletRequest request,
+            @RequestParam(name = "searchText", required = false) String searchText) {
 		model.addAttribute("products", productService.getAll());
 		model.addAttribute("searchForm", new ProductSearchForm(searchText));
         model.addAttribute("cart", cartStore.getTotalAmount());
-		return "product-list";
+        HttpSession session = request.getSession();
+        System.out.println(session.getId());
+        return "product-list";
 	}
 
 	@PostMapping

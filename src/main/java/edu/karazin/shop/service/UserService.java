@@ -13,4 +13,6 @@ public interface UserService {
     User getUser(String login);
 
     User getCurrentAuthenticatedUser();
+
+    List<User> getAllUsers();
 }

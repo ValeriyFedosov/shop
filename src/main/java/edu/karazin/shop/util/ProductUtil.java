@@ -1,6 +1,7 @@
 package edu.karazin.shop.util;
 
 import edu.karazin.shop.dto.HistoryDto;
+import edu.karazin.shop.dto.ProductDto;
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.model.PurchaseItem;
@@ -81,6 +82,20 @@ public class ProductUtil {
         purchaseItem.setPurchaseItemAmount(1L);
         purchaseItem.setCountOfCost(product.getCost());
         return purchaseItem;
+    }
+
+    public List<ProductDto> convertProductsToProductDtos(List<Product> products) {
+        List<ProductDto> productDtos = new ArrayList<>();
+        ProductDto productDto;
+        for (Product product : products) {
+            productDto = new ProductDto();
+            productDto.setTitle(product.getTitle());
+            productDto.setDescription(product.getDescription());
+            productDto.setCost(product.getCost());
+            productDto.setImageName(product.getImageName());
+            productDto.setBalance(product.getBalance());
+        }
+        return productDtos;
     }
 
 
