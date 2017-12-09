@@ -1,5 +1,6 @@
 package edu.karazin.shop.util;
 
+import edu.karazin.shop.dto.HistoryDto;
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.model.PurchaseItem;
@@ -48,9 +49,27 @@ public class ProductUtil {
             purchaseItem.setImageName(basketItem.getProduct().getImageName());
             purchaseItem.setTitle(basketItem.getProduct().getTitle());
             purchaseItem.setPurchaseItemAmount(basketItem.getCountOfProducts());
+            purchaseItem.setCountOfCost(basketItem.getCountOfCost());
             purchaseItems.add(purchaseItem);
         }
         return purchaseItems;
+    }
+
+    public List<HistoryDto> convertPurchaseItemsToHistoryDtos(List<PurchaseItem> purchaseItems) {
+        List<HistoryDto> historyDtos = new ArrayList<>();
+        HistoryDto historyDto;
+        for (PurchaseItem purchaseItem : purchaseItems) {
+            historyDto = new HistoryDto();
+            historyDto.setCost(purchaseItem.getCost());
+            historyDto.setDate(purchaseItem.getDate());
+            historyDto.setDescription(purchaseItem.getDescription());
+            historyDto.setImageName(purchaseItem.getImageName());
+            historyDto.setTitle(purchaseItem.getTitle());
+            historyDto.setPurchaseItemAmount(purchaseItem.getPurchaseItemAmount());
+            historyDto.setCountOfCost(purchaseItem.getCountOfCost());
+            historyDtos.add(historyDto);
+        }
+        return historyDtos;
     }
 
     public PurchaseItem convertProductToPurchaseItems(Product product) {
@@ -60,6 +79,7 @@ public class ProductUtil {
         purchaseItem.setCost(product.getCost());
         purchaseItem.setImageName(product.getImageName());
         purchaseItem.setPurchaseItemAmount(1L);
+        purchaseItem.setCountOfCost(product.getCost());
         return purchaseItem;
     }
 
