@@ -18,7 +18,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy="user_id")
+    @OneToMany(mappedBy="uid")
     private List<PurchaseItem> purchaseItems;
 
     public User() {

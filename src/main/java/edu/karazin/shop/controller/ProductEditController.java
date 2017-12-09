@@ -1,5 +1,7 @@
 package edu.karazin.shop.controller;
 
+import edu.karazin.shop.model.Product;
+import edu.karazin.shop.service.ProductService;
 import edu.karazin.shop.util.ProductUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import edu.karazin.shop.model.Product;
-import edu.karazin.shop.service.ProductService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

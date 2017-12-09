@@ -2,7 +2,6 @@ package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.model.*;
 import edu.karazin.shop.repository.PurchaseItemRepository;
-import edu.karazin.shop.repository.UserRepository;
 import edu.karazin.shop.service.ProductService;
 import edu.karazin.shop.service.UserService;
 import edu.karazin.shop.util.ProductUtil;
@@ -67,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 		String date = simpleDateFormat.format(new Date().getTime());
         for (PurchaseItem purchaseItem : purchaseItems) {
         	purchaseItem.setDate(date);
-        	purchaseItem.setUser_id(userService.getCurrentAuthenticatedUser());
+        	purchaseItem.setUid(userService.getCurrentAuthenticatedUser());
             purchaseItemRepository.save(purchaseItem);
         }
 	}
@@ -76,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
     public void addPurchaseItem(PurchaseItem purchaseItem) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
         purchaseItem.setDate(simpleDateFormat.format(new Date().getTime()));
-        purchaseItem.setUser_id(userService.getCurrentAuthenticatedUser());
+        purchaseItem.setUid(userService.getCurrentAuthenticatedUser());
 	    purchaseItemRepository.save(purchaseItem);
     }
 
