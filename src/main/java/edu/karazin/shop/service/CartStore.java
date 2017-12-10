@@ -1,16 +1,16 @@
 package edu.karazin.shop.service;
 
-import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.InMemoryBasketItem;
 
 import java.util.List;
 
 public interface CartStore {
 
-	List<BasketItem> getProducts();
+	List<InMemoryBasketItem> getProducts();
 
-	void addProduct(BasketItem prod);
+	void addProduct(InMemoryBasketItem prod);
 
-	void removeProduct(BasketItem prod);
+	void removeProduct(InMemoryBasketItem prod);
 
 	void removeAll();
 

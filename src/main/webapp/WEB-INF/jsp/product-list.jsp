@@ -39,7 +39,8 @@
         <a href="/admin" class="btn btn-warning" role="button">Create Admin</a>
         </sec:authorize>
         <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
-            <a href="/logout" class="btn btn-warning">Logout</a>
+            <a href="<c:url value="/logout" />">Logout</a>
+            <logout logout-success-url="/login.html"></logout>
             <a href="/history" class="btn btn-warning">Show purchase history</a>
         </sec:authorize>
     </div>
@@ -67,6 +68,14 @@
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
                                 <a href="/product?delete&prodId=${prod.id}" class="btn btn-danger">Delete</a>
+                                <%--<a href="/discount" class="btn btn-danger">Set discount</a>--%>
+                                <%--<form:form modelAttribute="discountForm" cssClass="search-box">--%>
+                                    <%--Discount: <form:input path="discount" /> <br/>--%>
+                                    <%--<form:input  path="discount" /> <br/>--%>
+                                    <%--&lt;%&ndash;From: <form:input path="from" /> <br/>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;To: <form:input path="to" /> <br/>&ndash;%&gt;--%>
+                                    <%--<input type="submit" class="btn btn-success" value="Set permanently" />--%>
+                                <%--</form:form>--%>
                             </sec:authorize>
                         </div>
                     </div>
@@ -80,7 +89,6 @@
         <sec:authorize access="hasRole('ROLE_ADMIN')">
             <a href="/product" class="btn btn-warning" role="button">New product</a>
             <a href="/product?deleteAll" class="btn btn-danger">DeleteAll</a>
-            <a href="/discount" class="btn btn-danger">Set discount</a>
         </sec:authorize>
     </div>
 

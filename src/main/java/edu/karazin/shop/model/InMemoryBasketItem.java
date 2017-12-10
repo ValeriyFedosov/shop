@@ -1,6 +1,7 @@
 package edu.karazin.shop.model;
 
-public class BasketItem {
+
+public class InMemoryBasketItem {
 
     private Product product;
     private double countOfCost;
@@ -35,7 +36,7 @@ public class BasketItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BasketItem that = (BasketItem) o;
+        InMemoryBasketItem that = (InMemoryBasketItem) o;
 
         return product != null ? product.equals(that.product) : that.product == null;
     }

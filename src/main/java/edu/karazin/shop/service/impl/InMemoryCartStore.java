@@ -1,7 +1,7 @@
 
 package edu.karazin.shop.service.impl;
 
-import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.InMemoryBasketItem;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.util.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.INTERFACES)
 public class InMemoryCartStore implements CartStore {
 
-	private final List<BasketItem> products = new ArrayList<>();
+	private final List<InMemoryBasketItem> products = new ArrayList<>();
 	private double totalCost;
 	private long totalAmount;
 
@@ -28,13 +28,13 @@ public class InMemoryCartStore implements CartStore {
 	}
 
 	@Override
-	public List<BasketItem> getProducts() {
+	public List<InMemoryBasketItem> getProducts() {
 		return products;
 	}
 
 
 	@Override
-	public void addProduct(BasketItem prod) {
+	public void addProduct(InMemoryBasketItem prod) {
 		if (products.contains(prod)) {
 			productUtil.addTheSameProductToCart(prod, products);
         } else {
@@ -47,10 +47,10 @@ public class InMemoryCartStore implements CartStore {
     }
 
 	@Override
-	public void removeProduct(BasketItem prod) {
-        for (BasketItem basketItem : products) {
-            if(basketItem.equals(prod)){
-                totalAmount-=basketItem.getCountOfProducts();
+	public void removeProduct(InMemoryBasketItem prod) {
+        for (InMemoryBasketItem inMemoryBasketItem : products) {
+            if(inMemoryBasketItem.equals(prod)){
+                totalAmount-= inMemoryBasketItem.getCountOfProducts();
             }
         }
 	    products.remove(prod);

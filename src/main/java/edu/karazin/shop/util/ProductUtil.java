@@ -2,7 +2,7 @@ package edu.karazin.shop.util;
 
 import edu.karazin.shop.dto.HistoryDto;
 import edu.karazin.shop.dto.ProductDto;
-import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.InMemoryBasketItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.model.PurchaseItem;
 import edu.karazin.shop.service.CartStore;
@@ -34,23 +34,23 @@ public class ProductUtil {
 
     // conversion
 
-    public BasketItem convertEntityToBasketItem(Product product) {
-        BasketItem basketItem = new BasketItem();
-        basketItem.setProduct(productService.getProduct(product.getId()));
-        return basketItem;
+    public InMemoryBasketItem convertEntityToBasketItem(Product product) {
+        InMemoryBasketItem inMemoryBasketItem = new InMemoryBasketItem();
+        inMemoryBasketItem.setProduct(productService.getProduct(product.getId()));
+        return inMemoryBasketItem;
     }
 
-    public List<PurchaseItem> convertBasketItemsToPurchaseItems(List<BasketItem> basketItems) {
+    public List<PurchaseItem> convertBasketItemsToPurchaseItems(List<InMemoryBasketItem> inMemoryBasketItems) {
         List<PurchaseItem> purchaseItems = new ArrayList<>();
         PurchaseItem purchaseItem;
-        for (BasketItem basketItem : basketItems) {
+        for (InMemoryBasketItem inMemoryBasketItem : inMemoryBasketItems) {
             purchaseItem = new PurchaseItem();
-            purchaseItem.setCost(basketItem.getProduct().getCost());
-            purchaseItem.setDescription(basketItem.getProduct().getDescription());
-            purchaseItem.setImageName(basketItem.getProduct().getImageName());
-            purchaseItem.setTitle(basketItem.getProduct().getTitle());
-            purchaseItem.setPurchaseItemAmount(basketItem.getCountOfProducts());
-            purchaseItem.setCountOfCost(basketItem.getCountOfCost());
+            purchaseItem.setCost(inMemoryBasketItem.getProduct().getCost());
+            purchaseItem.setDescription(inMemoryBasketItem.getProduct().getDescription());
+            purchaseItem.setImageName(inMemoryBasketItem.getProduct().getImageName());
+            purchaseItem.setTitle(inMemoryBasketItem.getProduct().getTitle());
+            purchaseItem.setPurchaseItemAmount(inMemoryBasketItem.getCountOfProducts());
+            purchaseItem.setCountOfCost(inMemoryBasketItem.getCountOfCost());
             purchaseItems.add(purchaseItem);
         }
         return purchaseItems;
@@ -99,13 +99,20 @@ public class ProductUtil {
     }
 
 
-    public void addTheSameProductToCart(BasketItem prod, List<BasketItem> basketItems) {
-        for (BasketItem basketItem : basketItems) {
-            if (basketItem.equals(prod)) {
-                basketItem.setCountOfCost(basketItem.getCountOfCost() + basketItem.getProduct().getCost());
-                basketItem.setCountOfProducts(basketItem.getCountOfProducts() + 1);
+    public void addTheSameProductToCart(InMemoryBasketItem prod, List<InMemoryBasketItem> inMemoryBasketItems) {
+        for (InMemoryBasketItem inMemoryBasketItem : inMemoryBasketItems) {
+            if (inMemoryBasketItem.equals(prod)) {
+                inMemoryBasketItem.setCountOfCost(inMemoryBasketItem.getCountOfCost() + inMemoryBasketItem.getProduct().getCost());
+                inMemoryBasketItem.setCountOfProducts(inMemoryBasketItem.getCountOfProducts() + 1);
             }
         }
+    }
+
+
+
+
+    public Double countDiscount(Double discountValue, Double productCost) {
+        return productCost - (productCost / 100 * discountValue);
     }
 
     public static String imgPersist(MultipartFile img) throws IOException {
@@ -131,14 +138,14 @@ public class ProductUtil {
         return false;
     }
 
-    public boolean checkForExistanceForCartAndDecrement(List<BasketItem> products, CartStore cartStore) {
-        for (BasketItem basketItem : cartStore.getProducts()) {
-            if (!(basketItem.getCountOfProducts() <= basketItem.getProduct().getBalance()))
+    public boolean checkForExistanceForCartAndDecrement(List<InMemoryBasketItem> products, CartStore cartStore) {
+        for (InMemoryBasketItem inMemoryBasketItem : cartStore.getProducts()) {
+            if (!(inMemoryBasketItem.getCountOfProducts() <= inMemoryBasketItem.getProduct().getBalance()))
                 return false;
         }
-        for (BasketItem basketItem : products) {
-            basketItem.getProduct().setBalance(basketItem.getProduct().getBalance() - basketItem.getCountOfProducts());
-            productService.updateProduct(basketItem.getProduct());
+        for (InMemoryBasketItem inMemoryBasketItem : products) {
+            inMemoryBasketItem.getProduct().setBalance(inMemoryBasketItem.getProduct().getBalance() - inMemoryBasketItem.getCountOfProducts());
+            productService.updateProduct(inMemoryBasketItem.getProduct());
         }
         return true;
     }

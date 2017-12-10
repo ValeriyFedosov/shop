@@ -1,9 +1,8 @@
 package edu.karazin.shop.service;
 
-import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.InMemoryBasketItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.model.PurchaseItem;
-import edu.karazin.shop.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -15,9 +14,9 @@ public interface ProductService {
 
 	List<Product> getAll();
 
-	void setDiscountForAllProducts(Long discountPercent);
+	void setDiscountToProductPermanently(Long productId, Double discountPercent);
 
-	List<Product> getBasketItems(List<BasketItem> basketItems);
+	List<Product> getBasketItems(List<InMemoryBasketItem> inMemoryBasketItems);
 
 	void addPurchaseItems(List<PurchaseItem> purchaseItems);
 
@@ -33,7 +32,7 @@ public interface ProductService {
 
 	void removeProduct(Long id);
 
-	BasketItem getBasketItems(Long id);
+	InMemoryBasketItem getBasketItems(Long id);
 
 	void deleteAll();
 }

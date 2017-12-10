@@ -1,7 +1,6 @@
 package edu.karazin.shop.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Product {
@@ -19,7 +18,20 @@ public class Product {
 	private double cost;
 	private int balance;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_discount")
+	private Discount product_discount;
+
+
 	public Product() {
+	}
+
+	public Discount getProduct_discount() {
+		return product_discount;
+	}
+
+	public void setProduct_discount(Discount product_discount) {
+		this.product_discount = product_discount;
 	}
 
 	public Product(Long id, String title, String description, double cost, int balance) {

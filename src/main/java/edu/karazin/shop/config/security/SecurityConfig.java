@@ -39,16 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/order/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER') or hasRole('ROLE_ANONYMOUS')")
                 .and()
                 .formLogin().loginPage("/login")
-                .defaultSuccessUrl("/products")
-                .failureUrl("/login?Nou").permitAll();
+                .defaultSuccessUrl("/products").permitAll();
 
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin").password("password").roles("ADMIN");
     }
 
 }

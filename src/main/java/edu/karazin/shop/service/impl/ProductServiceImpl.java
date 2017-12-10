@@ -1,6 +1,7 @@
 package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.model.*;
+import edu.karazin.shop.repository.DiscountRepository;
 import edu.karazin.shop.repository.PurchaseItemRepository;
 import edu.karazin.shop.service.ProductService;
 import edu.karazin.shop.service.UserService;
@@ -24,12 +25,14 @@ public class ProductServiceImpl implements ProductService {
 	private ProductUtil productUtil;
 	private final PurchaseItemRepository purchaseItemRepository;
 	private final UserService userService;
+	private final DiscountRepository discountRepository;
 
 	public ProductServiceImpl(@Autowired ProductRepository productRepository, @Autowired PurchaseItemRepository purchaseItemRepository,
-							  @Autowired UserService userService) {
+							  @Autowired UserService userService, @Autowired DiscountRepository discountRepository) {
 		this.productRepository = productRepository;
 		this.purchaseItemRepository = purchaseItemRepository;
 		this.userService = userService;
+		this.discountRepository = discountRepository;
 	}
 
     @Autowired
@@ -37,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 	    this.productUtil = productUtil;
     }
 
-	public BasketItem getBasketItems(Long id) { return productUtil.convertEntityToBasketItem(productRepository.getProductById(id)); }
+	public InMemoryBasketItem getBasketItems(Long id) { return productUtil.convertEntityToBasketItem(productRepository.getProductById(id)); }
 
 
     @Override
@@ -51,10 +54,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getBasketItems(List<BasketItem> basketItems) {
+	public List<Product> getBasketItems(List<InMemoryBasketItem> inMemoryBasketItems) {
 		List<Product> list = new ArrayList<>();
-		for (BasketItem basketItem : basketItems) {
-			list.add(productRepository.getProductById(basketItem.getProduct().getId()));
+		for (InMemoryBasketItem inMemoryBasketItem : inMemoryBasketItems) {
+			list.add(productRepository.getProductById(inMemoryBasketItem.getProduct().getId()));
 		}
 		return list;
 	}
@@ -99,15 +102,26 @@ public class ProductServiceImpl implements ProductService {
             return productRepository.save(prod).getId();
     }
 
+//    @Override
+//    @Transactional
+//	public void setDiscountToProductPermanently(Long productId, Double discountPercent) {
+//		for (Product product : getAll()) {
+//			product.setCost(product.getCost() - (product.getCost() / 100 * discountPercent));
+//            productRepository.save(product);
+//		}
+//    }
+
     @Override
     @Transactional
-	public void setDiscountForAllProducts(Long discountPercent) {
-		for (Product product : getAll()) {
-			product.setCost(product.getCost() - (product.getCost() / 100 * discountPercent));
+    public void setDiscountToProductPermanently(Long productId, Double discountPercent) {
+            Product product = getProduct(productId);
+            product.setCost(product.getCost() - (product.getCost() / 100 * discountPercent));
             productRepository.save(product);
-		}
-	}
-
+            List<Product> products = new ArrayList<>();
+            products.add(product);
+            Discount discount = new Discount(discountPercent, products);
+            discountRepository.save(discount);
+    }
 
     @Override
     @Transactional
