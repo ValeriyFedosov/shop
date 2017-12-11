@@ -1,6 +1,8 @@
 package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.Product;
+import edu.karazin.shop.model.PurchaseItem;
 import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.repository.BasketItemRepository;
 import edu.karazin.shop.repository.UserRepository;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -62,20 +65,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkForCart(User user) {
-        try {
-            basketItemRepository.findAllBy(user);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+    public void checkForCart(User user) {
+        List<BasketItem> basketItems = cartStore.getProducts();
+            for (BasketItem basketItem : basketItemRepository.findAll()) {
+                if(basketItem.getUid().getId().equals(user.getId())) {
+                    basketItem.setProduct(new Product());
+                    basketItem.getProduct().setDescription(basketItem.getDescription());
+                    basketItem.getProduct().setTitle(basketItem.getTitle());
+                    basketItem.getProduct().setId(basketItem.getProduct_id());
+                    cartStore.setTotalAmount(cartStore.getTotalAmount() + basketItem.getCountOfProducts());
+                    basketItems.add(basketItem);
+                }
+            }
     }
-
-    @Override
-    public List<BasketItem> getCartForUsers(User user) {
-        return basketItemRepository.findAllBy(user);
-    }
-
 
     @Override
     public User getUser(Long id) {

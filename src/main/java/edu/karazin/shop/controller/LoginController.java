@@ -29,9 +29,8 @@ public class LoginController {
     @GetMapping(params = "checkForUserCart")
     public String checkForUserCart() {
         User user = userService.getCurrentAuthenticatedUser();
-        if (user != null && user.getRole().equals(Role.ROLE_USER) && userService.checkForCart(user)) {
-            cartStore.setProducts(user.getBasketItems());
-            //model.addAttribute("cart", );
+        if (user != null && user.getRole().equals(Role.ROLE_USER)) {
+            userService.checkForCart(user);
         }
         return "forward:products";
     }

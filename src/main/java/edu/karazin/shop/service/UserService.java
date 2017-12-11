@@ -17,7 +17,6 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    boolean checkForCart(User user);
+    void checkForCart(User user);
 
-    List<BasketItem> getCartForUsers(User user);
 }

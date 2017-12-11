@@ -11,13 +11,12 @@ public class BasketItem {
 
     @Transient
     private Product product;
+    private Long product_id;
     private String title;
     private String description;
     private String imageName;
     private double cost;
     private int balance;
-
-    @Transient
     private double countOfCost;
     private int countOfProducts;
 
@@ -26,6 +25,14 @@ public class BasketItem {
     private User uid;
 
     public BasketItem() {
+    }
+
+    public Long getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(Long product_id) {
+        this.product_id = product_id;
     }
 
     public Product getProduct() {

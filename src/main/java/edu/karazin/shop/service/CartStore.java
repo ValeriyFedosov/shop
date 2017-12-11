@@ -20,4 +20,5 @@ public interface CartStore {
 
 	void setProducts(List<BasketItem> products);
 
+    void setTotalAmount(Long totalAmount);
 }

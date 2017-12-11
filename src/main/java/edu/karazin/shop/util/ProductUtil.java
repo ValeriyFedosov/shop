@@ -172,6 +172,7 @@ public class ProductUtil {
             basketItem.setDescription(basketItem.getProduct().getDescription());
             basketItem.setImageName(basketItem.getProduct().getImageName());
             basketItem.setTitle(basketItem.getProduct().getTitle());
+            basketItem.setProduct_id(basketItem.getProduct().getId());
         }
     }
 }

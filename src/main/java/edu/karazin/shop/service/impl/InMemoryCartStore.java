@@ -79,4 +79,9 @@ public class InMemoryCartStore implements CartStore {
     public void setProducts(List<BasketItem> products) {
         this.products = products;
     }
+
+	@Override
+	public void setTotalAmount(Long totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 }
