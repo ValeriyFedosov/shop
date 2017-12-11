@@ -15,17 +15,15 @@ public class ProductViewController {
 
 
     private final ProductService productService;
-    private final CartStore cartStore;
 
-    public ProductViewController(@Autowired ProductService productService,@Autowired CartStore cartStore) {
+    public ProductViewController(@Autowired ProductService productService) {
         this.productService = productService;
-        this.cartStore = cartStore;
     }
 
     @GetMapping
     public String listProducts(Model model, @RequestParam(name = "prodId") Long prodId) {
         model.addAttribute("product", productService.getProduct(prodId));
-        model.addAttribute("cart", cartStore.getTotalAmount());
+        //model.addAttribute("cart", cartStore.getTotalAmount());
         return "product-view";
     }
 

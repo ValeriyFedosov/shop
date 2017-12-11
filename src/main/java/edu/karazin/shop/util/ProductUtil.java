@@ -2,7 +2,7 @@ package edu.karazin.shop.util;
 
 import edu.karazin.shop.dto.HistoryDto;
 import edu.karazin.shop.dto.ProductDto;
-import edu.karazin.shop.model.InMemoryBasketItem;
+import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.model.PurchaseItem;
 import edu.karazin.shop.service.CartStore;
@@ -34,16 +34,16 @@ public class ProductUtil {
 
     // conversion
 
-    public InMemoryBasketItem convertEntityToBasketItem(Product product) {
-        InMemoryBasketItem inMemoryBasketItem = new InMemoryBasketItem();
-        inMemoryBasketItem.setProduct(productService.getProduct(product.getId()));
-        return inMemoryBasketItem;
+    public BasketItem convertEntityToBasketItem(Product product) {
+        BasketItem basketItem = new BasketItem();
+        basketItem.setProduct(productService.getProduct(product.getId()));
+        return basketItem;
     }
 
-    public List<PurchaseItem> convertBasketItemsToPurchaseItems(List<InMemoryBasketItem> inMemoryBasketItems) {
+    public List<PurchaseItem> convertBasketItemsToPurchaseItems(List<BasketItem> BasketItems) {
         List<PurchaseItem> purchaseItems = new ArrayList<>();
         PurchaseItem purchaseItem;
-        for (InMemoryBasketItem inMemoryBasketItem : inMemoryBasketItems) {
+        for (BasketItem inMemoryBasketItem : BasketItems) {
             purchaseItem = new PurchaseItem();
             purchaseItem.setCost(inMemoryBasketItem.getProduct().getCost());
             purchaseItem.setDescription(inMemoryBasketItem.getProduct().getDescription());
@@ -99,8 +99,8 @@ public class ProductUtil {
     }
 
 
-    public void addTheSameProductToCart(InMemoryBasketItem prod, List<InMemoryBasketItem> inMemoryBasketItems) {
-        for (InMemoryBasketItem inMemoryBasketItem : inMemoryBasketItems) {
+    public void addTheSameProductToCart(BasketItem prod, List<BasketItem> inMemoryBasketItems) {
+        for (BasketItem inMemoryBasketItem : inMemoryBasketItems) {
             if (inMemoryBasketItem.equals(prod)) {
                 inMemoryBasketItem.setCountOfCost(inMemoryBasketItem.getCountOfCost() + inMemoryBasketItem.getProduct().getCost());
                 inMemoryBasketItem.setCountOfProducts(inMemoryBasketItem.getCountOfProducts() + 1);
@@ -138,12 +138,12 @@ public class ProductUtil {
         return false;
     }
 
-    public boolean checkForExistanceForCartAndDecrement(List<InMemoryBasketItem> products, CartStore cartStore) {
-        for (InMemoryBasketItem inMemoryBasketItem : cartStore.getProducts()) {
+    public boolean checkForExistanceForCartAndDecrement(List<BasketItem> products, CartStore cartStore) {
+        for (BasketItem inMemoryBasketItem : cartStore.getProducts()) {
             if (!(inMemoryBasketItem.getCountOfProducts() <= inMemoryBasketItem.getProduct().getBalance()))
                 return false;
         }
-        for (InMemoryBasketItem inMemoryBasketItem : products) {
+        for (BasketItem inMemoryBasketItem : products) {
             inMemoryBasketItem.getProduct().setBalance(inMemoryBasketItem.getProduct().getBalance() - inMemoryBasketItem.getCountOfProducts());
             productService.updateProduct(inMemoryBasketItem.getProduct());
         }
@@ -165,4 +165,13 @@ public class ProductUtil {
     }
 
 
+    public void convertProductsToBasketItems(List<BasketItem> products) {
+        for (BasketItem basketItem : products) {
+            basketItem.setCost(basketItem.getProduct().getCost());
+            basketItem.setBalance(basketItem.getProduct().getBalance());
+            basketItem.setDescription(basketItem.getProduct().getDescription());
+            basketItem.setImageName(basketItem.getProduct().getImageName());
+            basketItem.setTitle(basketItem.getProduct().getTitle());
+        }
+    }
 }

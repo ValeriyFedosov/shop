@@ -12,11 +12,12 @@ public class ConfigurerAdapter extends WebMvcConfigurerAdapter {
     private static final String[] CLASSPATH_RESOURCE_LOCATION = {"classpath:/static/"};
 
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/login").setViewName("login");
+//        registry.addViewController("/discount").setViewName("discount-list");
+//
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

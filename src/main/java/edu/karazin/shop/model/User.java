@@ -21,6 +21,9 @@ public class User {
     @OneToMany(mappedBy="uid")
     private List<PurchaseItem> purchaseItems;
 
+    @OneToMany(mappedBy="uid")
+    private List<BasketItem> basketItems;
+
     public User() {
     }
 
@@ -28,6 +31,14 @@ public class User {
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    public List<BasketItem> getBasketItems() {
+        return basketItems;
+    }
+
+    public void setBasketItems(List<BasketItem> basketItems) {
+        this.basketItems = basketItems;
     }
 
     public List<PurchaseItem> getPurchaseItems() {

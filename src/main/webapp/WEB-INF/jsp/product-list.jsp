@@ -32,15 +32,17 @@
 
     <div class="action-box">
         <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
-            <a href="/user" class="btn btn-warning" role="button">Sign In</a>
-            <a href="/login" class="btn btn-warning" role="button">Login</a>
+            <a href="/user" class="btn btn-warning">Sign In</a>
+            <a href="/login" class="btn btn-warning">Login</a>
         </sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')">
-        <a href="/admin" class="btn btn-warning" role="button">Create Admin</a>
+        <a href="/admin" class="btn btn-warning">Create Admin</a>
         </sec:authorize>
         <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
-            <a href="<c:url value="/logout" />">Logout</a>
-            <logout logout-success-url="/login.html"></logout>
+            <form action="/customLogout" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input class="btn btn-warning" type="submit" value="Logout">
+            </form>
             <a href="/history" class="btn btn-warning">Show purchase history</a>
         </sec:authorize>
     </div>

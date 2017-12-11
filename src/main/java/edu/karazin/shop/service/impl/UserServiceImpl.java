@@ -1,9 +1,13 @@
 package edu.karazin.shop.service.impl;
 
+import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.enums.Role;
+import edu.karazin.shop.repository.BasketItemRepository;
 import edu.karazin.shop.repository.UserRepository;
 import edu.karazin.shop.model.User;
+import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.UserService;
+import edu.karazin.shop.util.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +20,14 @@ import java.util.NoSuchElementException;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final CartStore cartStore;
+    private final BasketItemRepository basketItemRepository;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+
+    public UserServiceImpl(@Autowired BasketItemRepository basketItemRepository, @Autowired UserRepository userRepository, @Autowired CartStore cartStore) {
         this.userRepository = userRepository;
+        this.cartStore = cartStore;
+        this.basketItemRepository = basketItemRepository;
     }
 
     @Override
@@ -52,6 +60,22 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAllBy(Role.ROLE_USER);
     }
+
+    @Override
+    public boolean checkForCart(User user) {
+        try {
+            basketItemRepository.findAllBy(user);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public List<BasketItem> getCartForUsers(User user) {
+        return basketItemRepository.findAllBy(user);
+    }
+
 
     @Override
     public User getUser(Long id) {

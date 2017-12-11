@@ -1,7 +1,10 @@
 package edu.karazin.shop.controller;
 
+import edu.karazin.shop.model.User;
+import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
+import edu.karazin.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +18,13 @@ public class CartController {
 
 
 	private final ProductService productService;
+	private final UserService userService;
 	private final CartStore cartStore;
 
-	public CartController(@Autowired ProductService productService, @Autowired CartStore cartStore) {
+	public CartController(@Autowired ProductService productService, @Autowired UserService userService,
+                          @Autowired CartStore cartStore) {
 		this.productService = productService;
+		this.userService = userService;
 		this.cartStore = cartStore;
 	}
 
@@ -33,15 +39,16 @@ public class CartController {
 
 	@GetMapping(params = "add")
 	public String addProduct(@RequestParam("prodId") Long prodId, Model model) {
-		cartStore.addProduct(productService.getBasketItems(prodId));
+        cartStore.addProduct(productService.getBasketItem(prodId));
         model.addAttribute("products", cartStore.getProducts());
 		model.addAttribute("total", cartStore.getTotalCost());
         return "cart-list";
 	}
 
+
 	@GetMapping(params = "delete")
 	public String removeProduct(@RequestParam("prodId") Long prodId, Model model) {
-		cartStore.removeProduct(productService.getBasketItems(prodId));
+		cartStore.removeProduct(productService.getBasketItem(prodId));
         model.addAttribute("products", cartStore.getProducts());
 		model.addAttribute("total", cartStore.getTotalCost());
 		return "cart-list";
@@ -49,7 +56,7 @@ public class CartController {
 
     @GetMapping(params = "deleteAll")
     public String removeAllProducts() {
-        cartStore.removeAll();
+       cartStore.removeAll();
         return "cart-list";
     }
 }

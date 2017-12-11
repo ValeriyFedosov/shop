@@ -1,8 +1,10 @@
 package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.model.*;
+import edu.karazin.shop.repository.BasketItemRepository;
 import edu.karazin.shop.repository.DiscountRepository;
 import edu.karazin.shop.repository.PurchaseItemRepository;
+import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
 import edu.karazin.shop.service.UserService;
 import edu.karazin.shop.util.ProductUtil;
@@ -26,13 +28,16 @@ public class ProductServiceImpl implements ProductService {
 	private final PurchaseItemRepository purchaseItemRepository;
 	private final UserService userService;
 	private final DiscountRepository discountRepository;
+	private final BasketItemRepository basketItemRepository;
 
 	public ProductServiceImpl(@Autowired ProductRepository productRepository, @Autowired PurchaseItemRepository purchaseItemRepository,
-							  @Autowired UserService userService, @Autowired DiscountRepository discountRepository) {
+							  @Autowired UserService userService, @Autowired DiscountRepository discountRepository,
+                              @Autowired BasketItemRepository basketItemRepository) {
 		this.productRepository = productRepository;
 		this.purchaseItemRepository = purchaseItemRepository;
 		this.userService = userService;
 		this.discountRepository = discountRepository;
+		this.basketItemRepository = basketItemRepository;
 	}
 
     @Autowired
@@ -40,7 +45,8 @@ public class ProductServiceImpl implements ProductService {
 	    this.productUtil = productUtil;
     }
 
-	public InMemoryBasketItem getBasketItems(Long id) { return productUtil.convertEntityToBasketItem(productRepository.getProductById(id)); }
+    @Override
+	public BasketItem getBasketItem(Long id) { return productUtil.convertEntityToBasketItem(productRepository.getProductById(id)); }
 
 
     @Override
@@ -54,9 +60,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getBasketItems(List<InMemoryBasketItem> inMemoryBasketItems) {
+	public List<Product> getBasketItem(List<BasketItem> inMemoryBasketItems) {
 		List<Product> list = new ArrayList<>();
-		for (InMemoryBasketItem inMemoryBasketItem : inMemoryBasketItems) {
+		for (BasketItem inMemoryBasketItem : inMemoryBasketItems) {
 			list.add(productRepository.getProductById(inMemoryBasketItem.getProduct().getId()));
 		}
 		return list;
@@ -149,6 +155,15 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : getAll()) {
             removeProduct(product.getId());
         }
+    }
+
+    @Override
+    public void saveCart(Long id, List<BasketItem> products) {
+	    productUtil.convertProductsToBasketItems(products);
+        for (BasketItem product : products) {
+            product.setUid(userService.getCurrentAuthenticatedUser());
+        }
+        basketItemRepository.save(products);
     }
 
 }
