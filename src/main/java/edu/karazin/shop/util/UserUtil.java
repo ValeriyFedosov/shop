@@ -14,6 +14,9 @@ public class UserUtil {
     }
 
     public List<UserDto> convertUsersToUserDtos(List<User> users) {
+        if (users == null) {
+            return null;
+        }
         List<UserDto> userDtos = new ArrayList<>();
         UserDto userDto;
         for (User user : users) {

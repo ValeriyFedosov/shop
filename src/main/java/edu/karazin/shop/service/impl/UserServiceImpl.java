@@ -61,7 +61,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAllBy(Role.ROLE_USER);
+        try {
+            return userRepository.findAllBy(Role.ROLE_USER);
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     @Override

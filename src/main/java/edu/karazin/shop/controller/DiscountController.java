@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 //@Controller
-//@RequestMapping("discount")
+//@RequestMapping("getData")
 public class DiscountController {
 
     private final UserService userService;
@@ -29,14 +29,10 @@ public class DiscountController {
         this.userUtil = userUtil;
     }
 
-    // , @RequestParam(name = "searchText", required = false) String searchText
-
-
-    @GetMapping(params = "permanently")
-    public String getDiscount(Model model, @RequestParam(name = "id", required = false) Long id, @RequestParam(name = "discount", required = false) Double discount) {
+    @GetMapping
+    public String getDiscount(Model model, @RequestParam(name = "id", required = false) Long id, @RequestParam(name = "getData", required = false) Double discount) {
         productService.setDiscountToProductPermanently(id, discount);
-        //model.addAttribute("products", productUtil.convertProductsToProductDtos(productService.getAll()));
-        return "discount-list";
+        return "getData-list";
     }
 
 

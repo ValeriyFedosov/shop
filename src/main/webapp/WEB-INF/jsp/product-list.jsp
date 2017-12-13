@@ -70,10 +70,10 @@
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
                                 <a href="/product?delete&prodId=${prod.id}" class="btn btn-danger">Delete</a>
-                                <%--<a href="/discount" class="btn btn-danger">Set discount</a>--%>
+                                <%--<a href="/getData" class="btn btn-danger">Set getData</a>--%>
                                 <%--<form:form modelAttribute="discountForm" cssClass="search-box">--%>
-                                    <%--Discount: <form:input path="discount" /> <br/>--%>
-                                    <%--<form:input  path="discount" /> <br/>--%>
+                                    <%--Discount: <form:input path="getData" /> <br/>--%>
+                                    <%--<form:input  path="getData" /> <br/>--%>
                                     <%--&lt;%&ndash;From: <form:input path="from" /> <br/>&ndash;%&gt;--%>
                                     <%--&lt;%&ndash;To: <form:input path="to" /> <br/>&ndash;%&gt;--%>
                                     <%--<input type="submit" class="btn btn-success" value="Set permanently" />--%>
