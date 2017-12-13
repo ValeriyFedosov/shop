@@ -15,4 +15,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findOne(Long id);
 
     List<User> findAllBy(Role role);
+
 }

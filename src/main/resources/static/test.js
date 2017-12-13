@@ -8,15 +8,15 @@ $(document).ready(function () {
         contentType: 'application/json',
         success: (data) => {
             // renderTable(data);
-            renderSelect(data, "productChoosing");
-            renderSelect(data, "userProductChoosing");
+            renderProductSelect(data, "productChoosing");
+            renderProductSelect(data, "userProductChoosing");
             renderUsersSelect(data);
             //console.log(data);
         }
     });
 });
 
-function renderSelect(payload, id) {
+function renderProductSelect(payload, id) {
     payload.products.forEach(function (product) {
         $(`#${id}`).append($(`<option value="${product.id}">${product.title}</option>`));
     });
@@ -30,12 +30,13 @@ function renderUsersSelect(payload) {
 
 function updateDiscountModel(tagId, user) {
     let model = [];
+    let users = [];
     let actionCheck = tagId === "userProductChoosing";
     $(`#${tagId}`).find(":selected").each(function () {
         model.push({
             id: this.value,
             title: this.text,
-            userId: actionCheck ? [user.id] : null,
+            users: actionCheck ? [user.id] : null,
             //username: actionCheck ? [user.login] : null,
             discount: actionCheck ? user.discount : `${$("#discountProductInput").val()}`
         });

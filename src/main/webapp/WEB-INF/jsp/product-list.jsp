@@ -37,6 +37,7 @@
         </sec:authorize>
         <sec:authorize access="hasRole('ROLE_ADMIN')">
         <a href="/admin" class="btn btn-warning">Create Admin</a>
+        <a href="/discount" class="btn btn-warning">Discount List</a>
         </sec:authorize>
         <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
             <form action="/customLogout" method="post">

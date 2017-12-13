@@ -36,12 +36,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User user) {
         try {
-            for (User o : userRepository.findAllBy(user.getRole())) {
-                if (o.equals(user)) {
+            for (User userFromDb : userRepository.findAll()) {
+                if (user.getLogin().equals(userFromDb.getLogin()))
                     return null;
                 }
-            }
-        } catch (NoSuchElementException e) {
+            } catch (NullPointerException e) {
             return userRepository.save(user);
         }
         return userRepository.save(user);
@@ -61,11 +60,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
         try {
-            return userRepository.findAllBy(Role.ROLE_USER);
+            for (User user : userRepository.findAll()) {
+                if (user.getRole().equals(Role.ROLE_USER)) {
+                    users.add(user);
+                }
+            }
         } catch (NoSuchElementException e) {
             return null;
         }
+            return users;
     }
 
     @Override

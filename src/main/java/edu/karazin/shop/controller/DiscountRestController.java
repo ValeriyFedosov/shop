@@ -32,7 +32,6 @@ public class DiscountRestController {
     @GetMapping
     public DiscountDto listUsersProducts(){
         DiscountDto discountDto = new DiscountDto();
-        List<UserDto> users = new ArrayList<>();
         discountDto.setProducts(productUtil.convertProductsToProductDtos(productService.getAll()));
         discountDto.setUsers(userUtil.convertUsersToUserDtos(userService.getAllUsers()));
         return discountDto;

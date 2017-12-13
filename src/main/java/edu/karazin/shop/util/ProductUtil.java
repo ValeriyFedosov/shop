@@ -89,11 +89,13 @@ public class ProductUtil {
         ProductDto productDto;
         for (Product product : products) {
             productDto = new ProductDto();
+            productDto.setId(product.getId());
             productDto.setTitle(product.getTitle());
             productDto.setDescription(product.getDescription());
             productDto.setCost(product.getCost());
             productDto.setImageName(product.getImageName());
             productDto.setBalance(product.getBalance());
+            productDtos.add(productDto);
         }
         return productDtos;
     }

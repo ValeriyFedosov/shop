@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("product")
+@RequestMapping("productEdit")
 public class ProductEditController {
 
 	private static final Logger log = LoggerFactory.getLogger(ProductEditController.class);
