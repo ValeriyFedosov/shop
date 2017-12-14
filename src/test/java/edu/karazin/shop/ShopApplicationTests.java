@@ -29,6 +29,3 @@ public class ShopApplicationTests {
 	}
 
 }
-
-// silenium for js
-// submit post and find it

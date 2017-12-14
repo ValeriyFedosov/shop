@@ -28,6 +28,8 @@ public class ShopApplication extends SpringBootServletInitializer {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
         userRepository.save(new User("admin", "admin",Role.ROLE_ADMIN));
+        userRepository.save(new User("ValeraUser", "userpass",Role.ROLE_USER));
+        userRepository.save(new User("ValeraFedUser", "userpass",Role.ROLE_USER));
         productRepository.save(new Product(null, "Socks", "some desc", 30, 20));
         productRepository.save(new Product(null, "Meat", "some desc 2", 50, 20));
     }

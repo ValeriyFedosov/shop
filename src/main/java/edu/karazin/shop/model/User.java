@@ -24,6 +24,11 @@ public class User {
     @OneToMany(mappedBy="uid")
     private List<BasketItem> basketItems;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_product", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "product_id") })
+
+    private List<Product> products;
+
     public User() {
     }
 

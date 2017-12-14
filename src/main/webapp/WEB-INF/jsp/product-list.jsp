@@ -49,11 +49,12 @@
     </div>
 <div class="center">
 
+<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
     <form:form modelAttribute="searchForm" cssClass="search-box">
         <form:input path="searchText" />
         <input type="submit" class="btn btn-success" value="Search" />
     </form:form>
-
+</sec:authorize>
     <div class="container-fluid">
         <div class="row" style="justify-content: center">
             <c:forEach items="${products}" var="prod">
@@ -69,16 +70,8 @@
                                 <a href="/product-view?prodId=${prod.id}" class="btn btn-info">View</a>
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <a href="/product/${prod.id}" class="btn btn-warning" role="button">Edit</a>
-                                <a href="/product?delete&prodId=${prod.id}" class="btn btn-danger">Delete</a>
-                                <%--<a href="/getData" class="btn btn-danger">Set getData</a>--%>
-                                <%--<form:form modelAttribute="discountForm" cssClass="search-box">--%>
-                                    <%--Discount: <form:input path="getData" /> <br/>--%>
-                                    <%--<form:input  path="getData" /> <br/>--%>
-                                    <%--&lt;%&ndash;From: <form:input path="from" /> <br/>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;To: <form:input path="to" /> <br/>&ndash;%&gt;--%>
-                                    <%--<input type="submit" class="btn btn-success" value="Set permanently" />--%>
-                                <%--</form:form>--%>
+                                <a href="/productEdit/${prod.id}" class="btn btn-warning" role="button">Edit</a>
+                                <a href="/productEdit?delete&prodId=${prod.id}" class="btn btn-danger">Delete</a>
                             </sec:authorize>
                         </div>
                     </div>
@@ -90,8 +83,8 @@
 
     <div class="action-box float-right">
         <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <a href="/product" class="btn btn-warning" role="button">New product</a>
-            <a href="/product?deleteAll" class="btn btn-danger">DeleteAll</a>
+            <a href="/productEdit" class="btn btn-warning">New product</a>
+            <a href="/productEdit?deleteAll" class="btn btn-danger">DeleteAll</a>
         </sec:authorize>
     </div>
 

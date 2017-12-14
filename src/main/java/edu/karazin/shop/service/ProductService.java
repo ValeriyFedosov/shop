@@ -14,8 +14,6 @@ public interface ProductService {
 
 	List<Product> getAll();
 
-	void setDiscountToProductPermanently(Long productId, Double discountPercent);
-
 	void addPurchaseItems(List<PurchaseItem> purchaseItems);
 
 	void addPurchaseItem(PurchaseItem purchaseItem);

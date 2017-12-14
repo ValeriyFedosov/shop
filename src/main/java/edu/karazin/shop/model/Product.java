@@ -1,6 +1,9 @@
 package edu.karazin.shop.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Product {
@@ -17,22 +20,11 @@ public class Product {
     private String imageName;
 	private double cost;
 	private int balance;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_discount")
-	private Discount product_discount;
-
+	private int discount;
 
 	public Product() {
 	}
 
-	public Discount getProduct_discount() {
-		return product_discount;
-	}
-
-	public void setProduct_discount(Discount product_discount) {
-		this.product_discount = product_discount;
-	}
 
 	public Product(Long id, String title, String description, double cost, int balance) {
 		this.id = id;
@@ -51,7 +43,15 @@ public class Product {
 		this.balance = balance;
 	}
 
-	public Long getId() {
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public Long getId() {
 		return id;
 	}
 

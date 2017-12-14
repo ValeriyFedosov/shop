@@ -2,6 +2,7 @@ package edu.karazin.shop.util;
 
 import edu.karazin.shop.dto.HistoryDto;
 import edu.karazin.shop.dto.ProductDto;
+import edu.karazin.shop.dto.ProductDtoForEdit;
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.model.PurchaseItem;
@@ -155,14 +156,22 @@ public class ProductUtil {
 
     // validation
 
-    public static boolean validate(Product product) {
+    public static boolean validate(ProductDtoForEdit product) {
         String title = product.getTitle();
         String description = product.getDescription();
-        double cost = product.getCost();
-        long balance = product.getBalance();
-        if (org.h2.util.StringUtils.isNumber(title) || title.toCharArray().length > 10
+        String cost = product.getCost();
+        String balance = product.getBalance();
+        if (org.h2.util.StringUtils.isNumber(title) || title.length() > 10
                 || title.isEmpty()) return false;
-        if(description.toCharArray().length > 1000) return false;
+        if(org.h2.util.StringUtils.isNumber(description) || description.length() > 1000 ||
+                description.isEmpty()) return false;
+        if (cost.length() == 0 || balance.length() == 0) return false;
+            try {
+                Double.parseDouble(cost);
+                Integer.parseInt(balance);
+            } catch (Exception e) {
+                return false;
+            }
         return true;
     }
 
@@ -178,4 +187,23 @@ public class ProductUtil {
         }
     }
 
+    public ProductDtoForEdit convertProductToProductDtoForEdit(Product product) {
+        ProductDtoForEdit productDtoForEdit = new ProductDtoForEdit();
+        productDtoForEdit.setBalance(Integer.toString(product.getBalance()));
+        productDtoForEdit.setCost(Double.toString(product.getCost()));
+        productDtoForEdit.setDescription(product.getDescription());
+        productDtoForEdit.setTitle(product.getTitle());
+        productDtoForEdit.setImageName(product.getImageName());
+        return productDtoForEdit;
+    }
+
+    public Product convertProductDtoForEditToProduct(ProductDtoForEdit productDto) {
+        Product product = new Product();
+        product.setId(productDto.getId());
+        product.setTitle(productDto.getTitle());
+        product.setDescription(productDto.getDescription());
+        product.setBalance(Integer.parseInt(productDto.getBalance()));
+        product.setCost(Double.parseDouble(productDto.getCost()));
+        return product;
+    }
 }

@@ -14,7 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
     Product getProductById(Long id);
 
-    @Query(value = "select p from Product p where p.description like :searchText or p.title like :searchText")
+    @Query(value = "select p from Product p where p.title like :searchText")
     List<Product> findByText(@Param("searchText") String searchText);
 
     Product save(Product prod);

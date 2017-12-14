@@ -1,14 +1,14 @@
 package edu.karazin.shop.service.impl;
 
-import edu.karazin.shop.model.*;
+import edu.karazin.shop.model.BasketItem;
+import edu.karazin.shop.model.Product;
+import edu.karazin.shop.model.PurchaseItem;
 import edu.karazin.shop.repository.BasketItemRepository;
-import edu.karazin.shop.repository.DiscountRepository;
+import edu.karazin.shop.repository.ProductRepository;
 import edu.karazin.shop.repository.PurchaseItemRepository;
-import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
 import edu.karazin.shop.service.UserService;
 import edu.karazin.shop.util.ProductUtil;
-import edu.karazin.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,16 +27,13 @@ public class ProductServiceImpl implements ProductService {
 	private ProductUtil productUtil;
 	private final PurchaseItemRepository purchaseItemRepository;
 	private final UserService userService;
-	private final DiscountRepository discountRepository;
 	private final BasketItemRepository basketItemRepository;
 
 	public ProductServiceImpl(@Autowired ProductRepository productRepository, @Autowired PurchaseItemRepository purchaseItemRepository,
-							  @Autowired UserService userService, @Autowired DiscountRepository discountRepository,
-                              @Autowired BasketItemRepository basketItemRepository) {
+							  @Autowired UserService userService, @Autowired BasketItemRepository basketItemRepository) {
 		this.productRepository = productRepository;
 		this.purchaseItemRepository = purchaseItemRepository;
 		this.userService = userService;
-		this.discountRepository = discountRepository;
 		this.basketItemRepository = basketItemRepository;
 	}
 
@@ -108,26 +105,6 @@ public class ProductServiceImpl implements ProductService {
             return productRepository.save(prod).getId();
     }
 
-//    @Override
-//    @Transactional
-//	public void setDiscountToProductPermanently(Long productId, Double discountPercent) {
-//		for (Product product : getAll()) {
-//			product.setCost(product.getCost() - (product.getCost() / 100 * discountPercent));
-//            productRepository.save(product);
-//		}
-//    }
-
-    @Override
-    @Transactional
-    public void setDiscountToProductPermanently(Long productId, Double discountPercent) {
-            Product product = getProduct(productId);
-            product.setCost(product.getCost() - (product.getCost() / 100 * discountPercent));
-            productRepository.save(product);
-            List<Product> products = new ArrayList<>();
-            products.add(product);
-            Discount discount = new Discount(discountPercent, products);
-            discountRepository.save(discount);
-    }
 
     @Override
     @Transactional
@@ -165,5 +142,6 @@ public class ProductServiceImpl implements ProductService {
         }
         basketItemRepository.save(products);
     }
+
 
 }

@@ -2,6 +2,7 @@ package edu.karazin.shop.controller;
 
 import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.service.UserService;
+import edu.karazin.shop.util.UserUtil;
 import edu.karazin.shop.web.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,10 +32,14 @@ public class UserController {
 
     @PostMapping
     public String userSave(Model model, @ModelAttribute("userForm") UserForm form) {
+        if (!(UserUtil.validate(form))) {
+            model.addAttribute("error", "Some fields have not passed validation");
+            return "sign-in";
+        }
         if (userService.createUser(form.convertToUser(Role.ROLE_USER)) == null) {
             model.addAttribute("error", "Such user already exists");
             return "sign-in";
         }
-        return "forward:/login";
+        return "forward:login";
     }
 }

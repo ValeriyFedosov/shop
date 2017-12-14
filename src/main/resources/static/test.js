@@ -30,25 +30,17 @@ function renderUsersSelect(payload) {
 
 function updateDiscountModel(tagId, user) {
     let model = [];
-    let users = [];
     let actionCheck = tagId === "userProductChoosing";
     $(`#${tagId}`).find(":selected").each(function () {
         model.push({
             id: this.value,
             title: this.text,
-            users: actionCheck ? [user.id] : null,
+            user: actionCheck ? user.id : null,
             //username: actionCheck ? [user.login] : null,
             discount: actionCheck ? user.discount : `${$("#discountProductInput").val()}`
         });
-        sendDataToServer(model);
-        // model.push({
-        //     id: this.value,
-        //     title: this.text,
-        //     userId: actionCheck ? user.id : null,
-        //     users: actionCheck ? [user.login] : null,
-        //     discount: actionCheck ? user.discount : `${$("#discountProductInput").val()}%`
-        // });
     });
+    sendDataToServer(model);
    // renderTable(model);
 }
 
@@ -56,7 +48,6 @@ function userProductUpdate() {
     $(`#userChoosing`).find(":selected").each(function () {
         updateDiscountModel('userProductChoosing', {
             id: this.value,
-            //username: this.text,
             discount: `${$("#discountUserProductInput").val()}`
         })
     });
@@ -64,7 +55,7 @@ function userProductUpdate() {
 
 function sendDataToServer (user) {
     $.ajax({
-        url: '/rest',
+        url: '/rest?we',
         method: 'POST',
         data: JSON.stringify(user),
         dataType: 'json',

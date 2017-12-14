@@ -23,5 +23,7 @@ public class DiscountDto {
     public void setProducts(List<ProductDto> products) {
         this.products = products;
     }
+
+
 }
 

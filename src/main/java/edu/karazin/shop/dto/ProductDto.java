@@ -1,7 +1,5 @@
 package edu.karazin.shop.dto;
 
-import edu.karazin.shop.model.User;
-
 import java.util.List;
 
 public class ProductDto {
@@ -90,10 +88,8 @@ public class ProductDto {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", imageName='" + imageName + '\'' +
-                ", cost=" + cost +
-                ", balance=" + balance +
                 ", discount=" + discount +
+                ", userList=" + userList +
                 '}';
     }
 }

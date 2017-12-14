@@ -1,6 +1,5 @@
 package edu.karazin.shop.service;
 
-import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.User;
 
 import java.util.List;

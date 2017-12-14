@@ -2,14 +2,12 @@ package edu.karazin.shop.service.impl;
 
 import edu.karazin.shop.model.BasketItem;
 import edu.karazin.shop.model.Product;
-import edu.karazin.shop.model.PurchaseItem;
+import edu.karazin.shop.model.User;
 import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.repository.BasketItemRepository;
 import edu.karazin.shop.repository.UserRepository;
-import edu.karazin.shop.model.User;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.UserService;
-import edu.karazin.shop.util.ProductUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

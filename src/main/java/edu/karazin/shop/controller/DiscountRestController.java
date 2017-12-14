@@ -10,7 +10,7 @@ import edu.karazin.shop.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("rest")
@@ -38,15 +38,26 @@ public class DiscountRestController {
     }
 
 
-//    @PostMapping(consumes="application/json")
-//    public void setDiscount(@RequestBody ProductDto[] productDtos) {
-//        //System.out.println(productDtos);
-//        System.out.println(Arrays.toString(productDtos));
-//    }
-
     @PostMapping(consumes="application/json")
+    public void setDiscount(@RequestBody ProductDto[] productDtos) {
+        //System.out.println(productDtos);
+        System.out.println(Arrays.toString(productDtos));
+    }
+
+    @PostMapping(consumes="application/json", params = "u")
+    public void setDiscount(@RequestBody UserDto[] productDtos) {
+        //System.out.println(productDtos);
+        System.out.println(Arrays.toString(productDtos));
+    }
+
+    @PostMapping(consumes="application/json", params = "w")
     public void setDiscount(@RequestBody String productDtos) {
         System.out.println(productDtos);
+    }
+
+    @PostMapping(consumes="application/json", params = "we")
+    public void setDiscount(@RequestBody DiscountDto[] productDtos) {
+        System.out.println(Arrays.toString(productDtos));
     }
 }
 

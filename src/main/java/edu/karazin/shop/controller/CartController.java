@@ -1,7 +1,5 @@
 package edu.karazin.shop.controller;
 
-import edu.karazin.shop.model.User;
-import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
 import edu.karazin.shop.service.UserService;

@@ -1,5 +1,6 @@
 package edu.karazin.shop.controller;
 
+import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.service.CartStore;
 import edu.karazin.shop.service.ProductService;
 import edu.karazin.shop.service.UserService;
@@ -36,6 +37,8 @@ public class OrderController {
             return "cart-list";
         }
         model.addAttribute("products", cartStore.getProducts());
+        Role role = (userService.getCurrentAuthenticatedUser() != null) ? userService.getCurrentAuthenticatedUser().getRole() : null;
+        if (role != null)
         productService.addPurchaseItems(productUtil.convertBasketItemsToPurchaseItems(cartStore.getProducts()));
         return "order-list";
     }

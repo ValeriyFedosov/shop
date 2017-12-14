@@ -7,8 +7,6 @@
 <head>
     <title>Product View</title>
     <link rel="stylesheet" href="${resourceContext}/bootstrap.min.css">
-    <link rel="stylesheet" href="${resourceContext}/layout.css">
-    <link rel="stylesheet" href="${resourceContext}/style.css">
     <script type="text/javascript" src="${resourceContext}/bootstrap.bundle.min.js"></script>
 </head>
 <body>
