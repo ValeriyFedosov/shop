@@ -5,16 +5,10 @@ import edu.karazin.shop.model.User;
 import edu.karazin.shop.model.enums.Role;
 import edu.karazin.shop.repository.ProductRepository;
 import edu.karazin.shop.repository.UserRepository;
-import edu.karazin.shop.service.UserService;
-import edu.karazin.shop.util.ProductUtil;
-import org.h2.tools.Server;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.sql.SQLException;
 
@@ -37,7 +31,7 @@ public class ShopApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws SQLException {
 		SpringApplication.run(ShopApplication.class, args);
-        Server.createTcpServer().start();
+        //Server.createTcpServer().start();
 	}
 
     @Override
