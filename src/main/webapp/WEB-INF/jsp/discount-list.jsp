@@ -10,18 +10,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<%--<table class="table" id="discountList">--%>
-    <%--<thead class="thead">--%>
-    <%--<tr>--%>
-        <%--<th scope="col">#</th>--%>
-        <%--<th scope="col">Brand</th>--%>
-        <%--<th scope="col">Username</th>--%>
-        <%--<th scope="col">Discount</th>--%>
-    <%--</tr>--%>
-    <%--</thead>--%>
-    <%--<tbody>--%>
-    <%--</tbody>--%>
-<%--</table>--%>
+<table class="table" id="discountList">
+    <thead class="thead">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Username</th>
+        <th scope="col">Discount</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 <div class="container-fluid" style="padding-left: 40px; padding-top: 100px; padding-right: 40px">
     <div class="row">
         <div class="card col-12">
