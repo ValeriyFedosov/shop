@@ -1,6 +1,4 @@
 # Online Shop
 
-## How to start
-```
-    mvn spring-boot:run
-```
+# Work branch is 'final'
+
